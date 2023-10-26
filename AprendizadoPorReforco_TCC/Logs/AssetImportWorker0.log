@@ -15,7 +15,7 @@ D:/TCC_Project/AprendizadoPorReforco_TCC
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-53788
+54596
 Successfully changed project path to: D:/TCC_Project/AprendizadoPorReforco_TCC
 D:/TCC_Project/AprendizadoPorReforco_TCC
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ D:/TCC_Project/AprendizadoPorReforco_TCC
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [7080] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1078981862 [EditorId] 1078981862 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-KBKU9CD) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [1300] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1356936415 [EditorId] 1356936415 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-KBKU9CD) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [7080] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1078981862 [EditorId] 1078981862 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-KBKU9CD) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [1300] Host "[IP] 192.168.1.6 [Port] 0 [Flags] 2 [Guid] 1356936415 [EditorId] 1356936415 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-KBKU9CD) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 123.88 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 99.99 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.15f1 (e8e88683f834)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/Resources/UnitySubsystems
@@ -67,92 +67,92 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56000
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56600
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 0.009401 seconds.
+Registered in 0.010927 seconds.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 89.33 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 113.58 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.831 seconds
+- Completed reload, in  1.049 seconds
 Domain Reload Profiling:
-	ReloadAssembly (832ms)
-		BeginReloadAssembly (104ms)
+	ReloadAssembly (1050ms)
+		BeginReloadAssembly (118ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (576ms)
-			LoadAssemblies (102ms)
+		EndReloadAssembly (737ms)
+			LoadAssemblies (117ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (147ms)
+			SetupTypeCache (191ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (39ms)
-			SetupLoadedEditorAssemblies (325ms)
+			RebuildScriptCaches (50ms)
+			SetupLoadedEditorAssemblies (408ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (11ms)
+				InitializePlatformSupportModulesInManaged (16ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (89ms)
-				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (158ms)
-				ProcessInitializeOnLoadMethodAttributes (66ms)
+				RefreshPlugins (114ms)
+				BeforeProcessingInitializeOnLoad (2ms)
+				ProcessInitializeOnLoadAttributes (207ms)
+				ProcessInitializeOnLoadMethodAttributes (69ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.004777 seconds.
+Registered in 0.006078 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image D:\TCC_Project\AprendizadoPorReforco_TCC\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image D:\TCC_Project\AprendizadoPorReforco_TCC\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.69 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.82 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.312 seconds
+- Completed reload, in  1.725 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1313ms)
-		BeginReloadAssembly (148ms)
+	ReloadAssembly (1727ms)
+		BeginReloadAssembly (175ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (8ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (24ms)
-		EndReloadAssembly (1012ms)
-			LoadAssemblies (108ms)
+			CreateAndSetChildDomain (36ms)
+		EndReloadAssembly (1366ms)
+			LoadAssemblies (122ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (350ms)
+			SetupTypeCache (481ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (61ms)
-			SetupLoadedEditorAssemblies (456ms)
+			RebuildScriptCaches (83ms)
+			SetupLoadedEditorAssemblies (620ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
+				InitializePlatformSupportModulesInManaged (14ms)
 				SetLoadedEditorAssemblies (1ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (104ms)
-				ProcessInitializeOnLoadAttributes (301ms)
-				ProcessInitializeOnLoadMethodAttributes (31ms)
-				AfterProcessingInitializeOnLoad (10ms)
+				BeforeProcessingInitializeOnLoad (133ms)
+				ProcessInitializeOnLoadAttributes (420ms)
+				ProcessInitializeOnLoadMethodAttributes (39ms)
+				AfterProcessingInitializeOnLoad (12ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (8ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 0.72 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.73 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3377 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 25 unused Assets / (56.5 KB). Loaded Objects now: 3837.
-Memory consumption went from 118.0 MB to 117.9 MB.
-Total: 3.454800 ms (FindLiveObjects: 0.339100 ms CreateObjectMapping: 0.186400 ms MarkObjects: 2.841000 ms  DeleteObjects: 0.087300 ms)
+Memory consumption went from 118.0 MB to 118.0 MB.
+Total: 5.661500 ms (FindLiveObjects: 0.344000 ms CreateObjectMapping: 0.332100 ms MarkObjects: 4.844500 ms  DeleteObjects: 0.139600 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -166,172 +166,7 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 40422.049287 seconds.
-  path: Assets/Animações/parado/sarcastic head nod.fbx
-  artifactKey: Guid(be26478afdb482241bf8733084758f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/sarcastic head nod.fbx using Guid(be26478afdb482241bf8733084758f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0eb6a6d6f1e5e06f8650755fe1b0ee59') in 0.108540 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/Animações/parado/weight shift.fbx
-  artifactKey: Guid(b8f2cca1b8a2f044d956f8e10b07e9e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/weight shift.fbx using Guid(b8f2cca1b8a2f044d956f8e10b07e9e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e4016fc6ffcd70e77dc0598c0ebbf6d') in 0.016563 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Animações/parado/happy_hand_gesture.fbx
-  artifactKey: Guid(445758e3f976a6f4fa1951b8802c6b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/happy_hand_gesture.fbx using Guid(445758e3f976a6f4fa1951b8802c6b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b5cd43039e18b517c22416575c97e78') in 0.019717 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Animações/parado/hard head nod.fbx
-  artifactKey: Guid(225579480f0f12f48a64a5af5a72196a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/hard head nod.fbx using Guid(225579480f0f12f48a64a5af5a72196a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06d0b85afe7bac63547cac31aad51a50') in 0.015827 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000034 seconds.
-  path: Assets/Animações/parado/relieved sigh.fbx
-  artifactKey: Guid(559f4daf007145b4285f6d72c942e8ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/relieved sigh.fbx using Guid(559f4daf007145b4285f6d72c942e8ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5f4916817c660222f2ac8e771424559') in 0.015673 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/Animações/parado/acknowledging.fbx
-  artifactKey: Guid(412b60b72e1ffdd468eab45a6b63cfee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/acknowledging.fbx using Guid(412b60b72e1ffdd468eab45a6b63cfee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6126972d2ac1f1fe0f1155f3744e74b5') in 0.016725 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/Animações/parado/angry gesture.fbx
-  artifactKey: Guid(d97d61352cbb0134799f29e578449e98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/angry gesture.fbx using Guid(d97d61352cbb0134799f29e578449e98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea5ff76e94695bbf380cfb91fe241162') in 0.015992 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/Animações/parado/dismissing_gesture.fbx
-  artifactKey: Guid(1dc848d4d3cd52844950bb672f78df23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/dismissing_gesture.fbx using Guid(1dc848d4d3cd52844950bb672f78df23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '318ba29a3a7398c51be01eee6adaa380') in 0.016566 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Animações/parado/lengthy head nod.fbx
-  artifactKey: Guid(d560b58dbcc4b454fbc8fce0d0d01944) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/lengthy head nod.fbx using Guid(d560b58dbcc4b454fbc8fce0d0d01944) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09dda8b613a789fecc043159a9477018') in 0.015078 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/Animações/parado/idle_2.fbx
-  artifactKey: Guid(acd2c8898c92c614c94ced72e6d221b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/idle_2.fbx using Guid(acd2c8898c92c614c94ced72e6d221b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70998d7850be3e63d3252c50ced563bf') in 0.016119 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/Animações/parado/being_cocky.fbx
-  artifactKey: Guid(69b42fc619cd0d3498ef7d3cbc027bd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/being_cocky.fbx using Guid(69b42fc619cd0d3498ef7d3cbc027bd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2b76d12bb9536a27c79c6f749dece7b') in 0.015278 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Animações/parado/look away gesture.fbx
-  artifactKey: Guid(bc5dd66cfc6c67b46a54e3f299e7de2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/look away gesture.fbx using Guid(bc5dd66cfc6c67b46a54e3f299e7de2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4441261dd2a7328f93a3eed27bb856d8') in 0.016661 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Animações/parado/idle.fbx
-  artifactKey: Guid(68f99fdc7bdae5a4bb918bbe6fe0a990) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/idle.fbx using Guid(68f99fdc7bdae5a4bb918bbe6fe0a990) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5807e1759852a757a0eedf071e1d5f15') in 0.015673 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/Animações/parado/shaking_head_no.fbx
-  artifactKey: Guid(802371a93c645094ab8ae13db0b48b0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/shaking_head_no.fbx using Guid(802371a93c645094ab8ae13db0b48b0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e743ef923617e5f478f7828bdf627f71') in 0.015717 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Animações/parado/head nod yes.fbx
-  artifactKey: Guid(3cc78da727b095347a9f5b9a3e3da0f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/head nod yes.fbx using Guid(3cc78da727b095347a9f5b9a3e3da0f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f25b408c8769c5639a0d6db30048d2c') in 0.014864 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/Animações/parado/annoyed head shake.fbx
-  artifactKey: Guid(5a74f2eecaf35b744ad2162fb66a4f2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/annoyed head shake.fbx using Guid(5a74f2eecaf35b744ad2162fb66a4f2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0bd4bb7735b04c958b6ee4f7b3ae0a0') in 0.015323 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Animações/parado/idle_4.fbx
-  artifactKey: Guid(bfaa591b2be45b34694f7032e99f5944) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/idle_4.fbx using Guid(bfaa591b2be45b34694f7032e99f5944) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2168d3d8281d679b6695ebe6b12de120') in 0.015969 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000037 seconds.
-  path: Assets/Animações/parado/idle_3.fbx
-  artifactKey: Guid(c8dca39872ab56340ab462b4275e750d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/idle_3.fbx using Guid(c8dca39872ab56340ab462b4275e750d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2e569170fbbb6bc3d63c9e4df7655b2') in 0.015420 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000037 seconds.
-  path: Assets/Animações/parado/thoughtful head shake.fbx
-  artifactKey: Guid(c02ee965ec0d19a4cbf1b5892936e734) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animações/parado/thoughtful head shake.fbx using Guid(c02ee965ec0d19a4cbf1b5892936e734) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e7834f74a6c75ac81aae233bc0f8eb4') in 0.016045 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004418 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image D:\TCC_Project\AprendizadoPorReforco_TCC\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image D:\TCC_Project\AprendizadoPorReforco_TCC\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for UWP target not found
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 3.72 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.133 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2134ms)
-		BeginReloadAssembly (170ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (43ms)
-		EndReloadAssembly (1800ms)
-			LoadAssemblies (146ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (761ms)
-			ReleaseScriptCaches (5ms)
-			RebuildScriptCaches (91ms)
-			SetupLoadedEditorAssemblies (668ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (31ms)
-				SetLoadedEditorAssemblies (2ms)
-				RefreshPlugins (4ms)
-				BeforeProcessingInitializeOnLoad (115ms)
-				ProcessInitializeOnLoadAttributes (443ms)
-				ProcessInitializeOnLoadMethodAttributes (61ms)
-				AfterProcessingInitializeOnLoad (11ms)
-				EditorAssembliesLoaded (1ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (14ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 24.07 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3357 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 18 unused Assets / (24.7 KB). Loaded Objects now: 3841.
-Memory consumption went from 116.8 MB to 116.7 MB.
-Total: 8.519500 ms (FindLiveObjects: 0.572900 ms CreateObjectMapping: 0.462400 ms MarkObjects: 7.383200 ms  DeleteObjects: 0.097000 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 46984.214133 seconds.
+  path: Assets/Scripts/ControleCenas
+  artifactKey: Guid(3edfe4451dd0cd94f8459a52dfd27a9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/ControleCenas using Guid(3edfe4451dd0cd94f8459a52dfd27a9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '720960449b2a575ad00036c471f0e10a') in 0.017679 seconds 
