@@ -57,8 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ControleMenuPrincipal\ControleMenuPrincipal.cs" />
+    <Compile Include="Assets\Scripts\Controler\Movimentacao.cs" />
     <Compile Include="Assets\Scripts\Controler\Controle_Animacao.cs" />
     <Compile Include="Assets\Scripts\ControleCenas\ControleCenas.cs" />
+    <Compile Include="Assets\Scripts\Movimento.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

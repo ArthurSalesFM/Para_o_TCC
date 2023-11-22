@@ -3,204 +3,203 @@ using UnityEngine;
 public class Controle_Animacao : MonoBehaviour
 {
     private Animator idle;
-    private bool teclaW_Pressionanda;
-    private bool teclaA_Pressionanda;
-    private bool teclaD_Pressionanda;
-    private bool teclaShift_Pressionanda;
+    private float velocidadeCaminhada = 5f;
+    private float velocidadeCorrida = 17.5f;
+    private bool teclaW_Pressionada;
+    private bool teclaA_Pressionada;
+    private bool teclaD_Pressionada;
+    private bool teclaShift_Pressionada;
+    private bool teclaSpace_Pressionada;
+    private bool teclaEnterPrecionada;
 
     void Start()
     {
         this.idle = GetComponent<Animator>();
-        this.teclaW_Pressionanda = false;
-        this.teclaA_Pressionanda = false;
-        this.teclaD_Pressionanda = false;
-        this.teclaShift_Pressionanda = false;
+        this.teclaW_Pressionada = false;
+        this.teclaA_Pressionada = false;
+        this.teclaD_Pressionada = false;
+        this.teclaShift_Pressionada = false;
+        this.teclaEnterPrecionada = false;
+        this.teclaSpace_Pressionada = false;
     }
 
     void Update()
     {
-        AtivaDesativaTeclas();
+        this.AtivaDesativaTeclas();
+        //this.MovimentaPersonagem();
     }
 
     private void AtivaDesativaTeclas()
-    {
+    {       
         //Inicio - Pressionar Enter
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_idle2", true);
+            this.DesativaAnimacoes();
+            this.idle.SetBool("idle_2", true);
+            this.teclaEnterPrecionada = true;
+            Debug.Log("Enter");
         }
 
         //Pressionar W
         if (Input.GetKeyDown(KeyCode.W))
         {
-            this.teclaW_Pressionanda = true;
+            this.teclaW_Pressionada = true;
             print("Ativou w");
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
-            this.teclaW_Pressionanda = false;
+            this.teclaW_Pressionada = false;
             print("Desativou w");
         }
 
         //Pressionar A
         if (Input.GetKeyDown(KeyCode.A))
         {
-            this.teclaA_Pressionanda = true;
+            this.teclaA_Pressionada = true;
             print("Ativou A");
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            this.teclaA_Pressionanda = false;
+            this.teclaA_Pressionada = false;
             print("Desativou A");
         }
 
         //Pressionar D
         if (Input.GetKeyDown(KeyCode.D))
         {
-            this.teclaD_Pressionanda = true;
+            this.teclaD_Pressionada = true;
             print("Ativou D");
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            this.teclaD_Pressionanda = false;
+            this.teclaD_Pressionada = false;
             print("Desativou D");
         }
 
         //Pressionar Shift
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            this.teclaShift_Pressionanda = true;
+            this.teclaShift_Pressionada = true;
             print("Ativou Shift");
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            this.teclaShift_Pressionanda = false;
+            this.teclaShift_Pressionada = false;
             print("Desativou Shift");
         }
 
-        this.executaAnimacoes();
+        //Pressionar Space
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            this.teclaSpace_Pressionada = true;
+            print("Ativou o Pulo");
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            this.teclaSpace_Pressionada = false;
+            print("Desativou o Pulo");
+        }
 
+        this.ExecutaAnimacoes();
     }
 
-    private void executaAnimacoes()
+    private void MovimentaPersonagem()
     {
 
-        //
-        //ANDAR =====================================================================
-        //
-
-        //Andar para Frente
-        if (this.idle.GetBool("Vai_Para_idle2") && this.teclaW_Pressionanda)
+        if (this.teclaEnterPrecionada == true)
         {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_walking_1", true);
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+
+            float velocidadeAtual = teclaShift_Pressionada ? velocidadeCorrida : velocidadeCaminhada;
+
+            transform.position += movement * Time.deltaTime * velocidadeAtual;
         }
-        // Parar de Andar para Frente
-        else if (this.idle.GetBool("Vai_Para_walking_1") && !this.teclaW_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_idle2", true);
-        }
+        
+    }
 
-
-        //Andar para Esquerda
-        if (this.idle.GetBool("Vai_Para_idle2") && this.teclaA_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_left_strafe_walking", true);
-        }
-        // Parar de Andar para Esquerda
-        else if (this.idle.GetBool("Vai_Para_left_strafe_walking") && !this.teclaA_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_idle2", true);
-        }
-
-
-        //Andar para Direita
-        if (this.idle.GetBool("Vai_Para_idle2") && this.teclaD_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_right_strafe_walking", true);
-        }
-        // Parar de Andar para Direita
-        else if (this.idle.GetBool("Vai_Para_right_strafe_walking") && !this.teclaD_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_idle2", true);
-        }
-
-
-        //
-        //Correndo =====================================================================
-        //
-
-        //Correr para Frente
-        if (this.idle.GetBool("Vai_Para_walking_1") &&  this.teclaShift_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_running", true);
-        }
-        else if (this.idle.GetBool("Vai_Para_running") && !this.teclaShift_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_walking_1", true);
-        }
-
-
-        //Correr para Esquerda
-        if (this.idle.GetBool("Vai_Para_left_strafe_walking") && this.teclaShift_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_left_strafe", true);
-        }
-        else if (this.idle.GetBool("Vai_Para_left_strafe") && !this.teclaShift_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_left_strafe_walking", true);
-        }
-
-
-        //Correr para Direita
-        if (this.idle.GetBool("Vai_Para_right_strafe_walking") && this.teclaShift_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_right_strafe", true);
-        }
-        else if (this.idle.GetBool("Vai_Para_right_strafe") && !this.teclaShift_Pressionanda)
-        {
-            this.desativaAnimacoes();
-            this.idle.SetBool("Vai_Para_right_strafe_walking", true);
-        }
-
-    }  
-
-
-    private void desativaAnimacoes()
+    private void ExecutaAnimacoes()
     {
-        this.idle.SetBool("Ativa_acknowledging", false);
-        this.idle.SetBool("Ativa_happy_hand_gesture", false);
-        this.idle.SetBool("Ativa_head_nod_yes", false);
-        this.idle.SetBool("Ativa_shaking_head_no", false);
-        this.idle.SetBool("Ativa_dismissing_gesture", false);
-        this.idle.SetBool("Ativa_being_cocky", false);
-        this.idle.SetBool("Vai_Para_idle2", false);
-        this.idle.SetBool("Volta_idle", false);
-        this.idle.SetBool("Vai_Para_idle3", false);
-        this.idle.SetBool("Vai_Para_idle4", false);
-        this.idle.SetBool("Vai_Para_left_strafe_walking", false);
-        this.idle.SetBool("Vai_Para_right_strafe_walking", false);
-        this.idle.SetBool("Vai_Para_left_strafe", false);
-        this.idle.SetBool("Vai_Para_right_strafe", false);
-        this.idle.SetBool("Vai_Para_running", false);
-        this.idle.SetBool("Vai_para_jump", false);
-        this.idle.SetBool("Vai_Para_walking_1", false);
-        this.idle.SetBool("Vai_Para_run_to_stop", false);
-        this.idle.SetBool("Vai_para_jumping_up", false);
-        this.idle.SetBool("Vai_Para_falling_idle", false);
-        this.idle.SetBool("Vai_para_falling_to_roll", false);
-        this.idle.SetBool("Vai_para_hard_landing", false);
 
+        if (this.teclaEnterPrecionada == true)
+        {
+
+            //se nenhuma tecla estiver pressionada, volta para o idle
+            if ( !this.teclaW_Pressionada && !this.teclaA_Pressionada && !this.teclaD_Pressionada)
+            {
+                this.DesativaAnimacoes();
+                this.idle.SetBool("idle_2", true);
+            }
+
+            else
+            {
+                /*
+                 *  ANIMAÇÕES ANDANDO
+                 */
+                //andar frente
+                if (this.teclaW_Pressionada && !this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("AndarFrente", true);
+                }
+
+                //andar esquerda
+                if (this.teclaA_Pressionada && !this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("AndarEsquerda", true);
+                }
+
+                //andar direita
+                if (this.teclaD_Pressionada && !this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("AndarDireita", true);
+                }
+
+                /*
+                 *  ANIMAÇÕES CORRENDO
+                 */
+                //Correr para frente
+                if (this.teclaW_Pressionada && this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("CorrerFrente", true);
+                }
+
+                //correr para esquerda
+                if (this.teclaA_Pressionada && this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("CorrerEsquerda", true);
+                }
+
+                //correr para direita
+                if (this.teclaD_Pressionada && this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("CorrerDireita", true);
+                }
+
+                //Pulando
+                if (this.teclaSpace_Pressionada && this.teclaW_Pressionada && this.teclaShift_Pressionada)
+                {
+                    this.DesativaAnimacoes();
+                    this.idle.SetBool("Pular", true);
+                }
+            }
+        }       
+    }
+
+    private void DesativaAnimacoes()
+    {
+        this.idle.SetBool("idle_2", false);
+        this.idle.SetBool("AndarFrente", false);
+        this.idle.SetBool("AndarEsquerda", false);
+        this.idle.SetBool("AndarDireita", false);
+        this.idle.SetBool("CorrerFrente", false);
+        this.idle.SetBool("CorrerEsquerda", false);
+        this.idle.SetBool("CorrerDireita", false);
+        this.idle.SetBool("Pular", false);
     }
 }

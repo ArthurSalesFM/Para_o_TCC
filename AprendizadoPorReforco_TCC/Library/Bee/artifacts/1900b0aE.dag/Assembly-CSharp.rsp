@@ -356,6 +356,8 @@
 "Assets/Scripts/ControleCenas/ControleCenas.cs"
 "Assets/Scripts/ControleMenuPrincipal/ControleMenuPrincipal.cs"
 "Assets/Scripts/Controler/Controle_Animacao.cs"
+"Assets/Scripts/Controler/Movimentacao.cs"
+"Assets/Scripts/Movimento.cs"
 -langversion:9.0
 
 /deterministic
