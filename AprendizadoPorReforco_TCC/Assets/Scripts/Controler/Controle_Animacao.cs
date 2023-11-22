@@ -4,7 +4,7 @@ public class Controle_Animacao : MonoBehaviour
 {
     private Animator idle;
     private float velocidadeCaminhada = 5f;
-    private float velocidadeCorrida = 17.5f;
+    private float velocidadeCorrida = 12.5f;
     private bool teclaW_Pressionada;
     private bool teclaA_Pressionada;
     private bool teclaD_Pressionada;
@@ -26,7 +26,7 @@ public class Controle_Animacao : MonoBehaviour
     void Update()
     {
         this.AtivaDesativaTeclas();
-        //this.MovimentaPersonagem();
+        this.MovimentaPersonagem();
     }
 
     private void AtivaDesativaTeclas()
@@ -111,7 +111,7 @@ public class Controle_Animacao : MonoBehaviour
             float moveHorizontal = Input.GetAxis("Horizontal");
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
-            float velocidadeAtual = teclaShift_Pressionada ? velocidadeCorrida : velocidadeCaminhada;
+            float velocidadeAtual = this.teclaShift_Pressionada ? velocidadeCorrida : velocidadeCaminhada;
 
             transform.position += movement * Time.deltaTime * velocidadeAtual;
         }

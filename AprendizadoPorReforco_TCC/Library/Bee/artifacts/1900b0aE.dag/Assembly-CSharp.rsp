@@ -358,6 +358,7 @@
 "Assets/Scripts/Controler/Controle_Animacao.cs"
 "Assets/Scripts/Controler/Movimentacao.cs"
 "Assets/Scripts/Movimento.cs"
+"Assets/Scripts/Objetos do jogo/MovimentacaoObjetos.cs"
 -langversion:9.0
 
 /deterministic
