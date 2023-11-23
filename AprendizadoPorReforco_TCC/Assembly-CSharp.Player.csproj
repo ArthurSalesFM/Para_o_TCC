@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\ControleCenas\ControleCenas.cs" />
     <Compile Include="Assets\Scripts\Movimento.cs" />
     <Compile Include="Assets\Scripts\Objetos do jogo\MovimentacaoObjetos.cs" />
+    <Compile Include="Assets\Scripts\Objetos do jogo\InstanciarObjetos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
