@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Controle_AnimacaoPlayer : MonoBehaviour
 {
@@ -8,14 +7,12 @@ public class Controle_AnimacaoPlayer : MonoBehaviour
     private bool teclaA_Pressionada;
     private bool teclaD_Pressionada;
     private bool teclaSpace_Pressionada;
-    private bool teclaEnterPrecionada;
 
     void Start()
     {
         this.idle = GetComponent<Animator>();
         this.teclaA_Pressionada = false;
         this.teclaD_Pressionada = false;
-        this.teclaEnterPrecionada = false;
         this.teclaSpace_Pressionada = false;
     }
 
@@ -28,11 +25,10 @@ public class Controle_AnimacaoPlayer : MonoBehaviour
     private void AtivaDesativaTeclas()
     {       
         //Inicio - Pressionar Enter
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (BaseDoJogo.IniciarJogo)
         {
             this.DesativaAnimacoes();
-            this.idle.SetBool("CorrerFrente", true);
-            this.teclaEnterPrecionada = true;
+            this.idle.SetBool("CorrerFrente", true);            
             Debug.Log("Enter");
         }
 
@@ -78,8 +74,9 @@ public class Controle_AnimacaoPlayer : MonoBehaviour
     private void MovimentaPersonagem()
     {
         float moveHorizontal = 0f;
+        float moveVertical = 0f;
 
-        // Verifica as teclas pressionadas para movimentar o personagem
+        // Verifica as teclas pressionadas para movimentar o personagem no eixo X
         if (this.teclaA_Pressionada)
         {
             moveHorizontal = -1f; // Movimento para a esquerda
@@ -89,18 +86,30 @@ public class Controle_AnimacaoPlayer : MonoBehaviour
             moveHorizontal = 1f; // Movimento para a direita
         }
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
-        transform.position += movement * Time.deltaTime * velocidadeCorrida;
+        // Movimenta o personagem apenas no eixo X
+        Vector3 horizontalMovement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+        transform.position += horizontalMovement * Time.deltaTime * velocidadeCorrida;
 
-        // Limita a posição do personagem entre -17 e 17 no eixo x
+        // Limita a posição do personagem entre -17 e 17 no eixo X
         float posX = Mathf.Clamp(transform.position.x, -17f, 17f);
         transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+
+        // Verifica se a tecla de espaço foi pressionada para mover o personagem no eixo Y
+        if (this.teclaSpace_Pressionada)
+        {
+            moveVertical = 3f; // Movimento para cima (eixo Y)
+        }
+
+        // Movimenta o personagem apenas no eixo Y
+        Vector3 verticalMovement = new Vector3(0.0f, moveVertical, 0.0f);
+        transform.position += verticalMovement * Time.deltaTime * velocidadeCorrida;
     }
+
 
     private void ExecutaAnimacoes()
     {
 
-        if (this.teclaEnterPrecionada == true)
+        if (BaseDoJogo.IniciarJogo)
         {
 
             if (!this.teclaA_Pressionada && !this.teclaD_Pressionada)

@@ -357,10 +357,9 @@
 "Assets/Scripts/ControleCenas/ControleCenas.cs"
 "Assets/Scripts/ControleMenuPrincipal/ControleMenuPrincipal.cs"
 "Assets/Scripts/Controler/Controle_AnimacaoPlayer.cs"
-"Assets/Scripts/Controler/Movimentacao.cs"
 "Assets/Scripts/Movimento.cs"
-"Assets/Scripts/Objetos do jogo/InstanciarObjetos.cs"
 "Assets/Scripts/Objetos do jogo/MovimentacaoObjetos.cs"
+"Assets/Scripts/Objetos do jogo/MovimentaObjetos.cs"
 -langversion:9.0
 
 /deterministic
