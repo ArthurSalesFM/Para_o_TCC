@@ -16,5 +16,11 @@ public class MovimentacaoObjetos : MonoBehaviour
     {
         // Movendo o objeto no eixo Z continuamente
         transform.Translate(Vector3.forward * Time.deltaTime * velocidade);
+
+        if (transform.position.z < -17)
+        {
+            Destroy(this);
+        }
+
     }
 }

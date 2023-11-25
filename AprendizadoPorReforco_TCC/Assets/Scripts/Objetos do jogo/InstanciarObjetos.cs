@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InstanciarObjetos : MonoBehaviour
@@ -13,7 +14,7 @@ public class InstanciarObjetos : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             InstanciarMeuPrefabNaPosicaoDoObjeto();
-        }
+        }        
     }
 
     void InstanciarMeuPrefabNaPosicaoDoObjeto()

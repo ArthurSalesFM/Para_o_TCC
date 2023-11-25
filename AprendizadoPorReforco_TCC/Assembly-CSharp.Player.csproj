@@ -58,11 +58,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ControleMenuPrincipal\ControleMenuPrincipal.cs" />
     <Compile Include="Assets\Scripts\Controler\Movimentacao.cs" />
-    <Compile Include="Assets\Scripts\Controler\Controle_Animacao.cs" />
+    <Compile Include="Assets\Scripts\Controler\Controle_AnimacaoPlayer.cs" />
     <Compile Include="Assets\Scripts\ControleCenas\ControleCenas.cs" />
+    <Compile Include="Assets\Scripts\Objetos do jogo\InstanciarObjetos.cs" />
     <Compile Include="Assets\Scripts\Movimento.cs" />
     <Compile Include="Assets\Scripts\Objetos do jogo\MovimentacaoObjetos.cs" />
-    <Compile Include="Assets\Scripts\Objetos do jogo\InstanciarObjetos.cs" />
+    <Compile Include="Assets\Scripts\Base do jogo\BaseDoJogo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
