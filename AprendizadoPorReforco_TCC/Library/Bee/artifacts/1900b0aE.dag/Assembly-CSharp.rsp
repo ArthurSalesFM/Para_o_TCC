@@ -356,10 +356,12 @@
 "Assets/Scripts/Base do jogo/BaseDoJogo.cs"
 "Assets/Scripts/ControleCenas/ControleCenas.cs"
 "Assets/Scripts/ControleMenuPrincipal/ControleMenuPrincipal.cs"
+"Assets/Scripts/Controler/Colisao.cs"
 "Assets/Scripts/Controler/Controle_AnimacaoPlayer.cs"
 "Assets/Scripts/Movimento.cs"
-"Assets/Scripts/Objetos do jogo/MovimentacaoObjetos.cs"
-"Assets/Scripts/Objetos do jogo/MovimentaObjetos.cs"
+"Assets/Scripts/Objetos do jogo/InstanciaObjetos.cs"
+"Assets/Scripts/Objetos do jogo/MovimentacaoObjeto.cs"
+"Assets/Scripts/Objetos do jogo/Prefabs_Pontos.cs"
 -langversion:9.0
 
 /deterministic

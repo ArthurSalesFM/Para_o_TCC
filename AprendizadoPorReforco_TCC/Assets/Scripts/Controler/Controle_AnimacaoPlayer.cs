@@ -97,7 +97,7 @@ public class Controle_AnimacaoPlayer : MonoBehaviour
         // Verifica se a tecla de espaço foi pressionada para mover o personagem no eixo Y
         if (this.teclaSpace_Pressionada)
         {
-            moveVertical = 3f; // Movimento para cima (eixo Y)
+            moveVertical = 2f; // Movimento para cima (eixo Y)
         }
 
         // Movimenta o personagem apenas no eixo Y
