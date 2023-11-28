@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class BaseDoJogo : MonoBehaviour
 {
     //Atributos privados
-    private float tempoTotalParaMudancaDeNivel = 20.0f; // Tempo total em segundos
-    //private float tempoParaIniciarOutroNivel = 15.0f; // Tempo de espera para iniciar novamente instancias de objetos
+    private float tempoTotalParaMudancaDeNivel = 40.0f; // Tempo total em segundos
+    private float tempoParaIniciarOutroNivel = 15.0f; // Tempo de espera para iniciar novamente instancias de objetos
     private float tempoAtualDoNivel; // Tempo atual restante
     private float tempoParaInstanciarObstaculos = 6.3f;
     private float tempoParaInstanciarVida = 12.5f;
@@ -56,13 +56,23 @@ public class BaseDoJogo : MonoBehaviour
 
             if (this.tempoAtualDoNivel <= 0f) // Se o tempo acabar
             {
-                this.nivelDoJogo++; // Aumentando o nivel do jogo
-                this.NivelDoJogo.text = "Nível: " + this.nivelDoJogo; // mudando o texto do nivel do jogo
-                this.aumentaVelocidadeDosObjetos(); // aumentando a velocidade da movimentação do objetos instanciados
-                this.tempoAtualDoNivel = this.tempoTotalParaMudancaDeNivel; // Seta o padrão de tempo do jogo                              
+                this.tempoParaIniciarOutroNivel -= Time.deltaTime;
+
+                this.AtualizarTextoCronometro(2);
+
+                if (this.tempoParaIniciarOutroNivel <= 0f)
+                {
+                    this.nivelDoJogo++; // Aumentando o nivel do jogo
+                    this.NivelDoJogo.text = "Nível: " + this.nivelDoJogo; // mudando o texto do nivel do jogo
+                    this.aumentaVelocidadeDosObjetos(); // aumentando a velocidade da movimentação do objetos instanciados
+                    this.tempoAtualDoNivel = this.tempoTotalParaMudancaDeNivel; // Seta o padrão de tempo do jogo
+                    this.atualizaTempoDeInstanciacaoDeObjetos();
+                    this.tempoParaIniciarOutroNivel = 15.0f;
+                }                
             }
             else
             {
+
                 this.tempoParaInstanciarObstaculos -= Time.deltaTime;
                 this.tempoParaInstanciarVida -= Time.deltaTime;
                 this.tempoParaInstamciarMoeda -= Time.deltaTime;
@@ -84,8 +94,8 @@ public class BaseDoJogo : MonoBehaviour
                     this.instanciarMoedaNaPosicaoDoPonto();                    
                     this.tempoParaInstamciarMoeda = 1.3f;
                 }
+                this.AtualizarTextoCronometro(1);                
             }
-            this.AtualizarTextoCronometro(1);
             this.DestruirObjetosNaPosicaoZ();
             this.atualizaQuantidadesDeMoedasDoJogador();
             this.atualizaQuantidadeDeVidasDoJogador();
@@ -94,12 +104,16 @@ public class BaseDoJogo : MonoBehaviour
 
     private void AtualizarTextoCronometro(int info)
     {
+        int minutos;
+        int segundos;
+        string textoTempo;
+
         if (info == 1)
         {
             //Dividindo o tempo em minutos e segundos
-            int minutos = Mathf.FloorToInt(this.tempoAtualDoNivel / 60f);
-            int segundos = Mathf.FloorToInt(this.tempoAtualDoNivel % 60f);
-            string textoTempo = string.Format("{0:00}:{1:00}", minutos, segundos);
+            minutos = Mathf.FloorToInt(this.tempoAtualDoNivel / 60f);
+            segundos = Mathf.FloorToInt(this.tempoAtualDoNivel % 60f);
+            textoTempo = string.Format("{0:00}:{1:00}", minutos, segundos);
 
             //Atualizando as informações de tempo no jogo
             if (textoDoCronometro != null)
@@ -109,7 +123,14 @@ public class BaseDoJogo : MonoBehaviour
         }
         else
         {
-            //informação do tempo de espera para começar outro nível
+            minutos = Mathf.FloorToInt(this.tempoParaIniciarOutroNivel / 60f);
+            segundos = Mathf.FloorToInt(this.tempoParaIniciarOutroNivel % 60f);
+            textoTempo = string.Format("{0:00}:{1:00}", minutos, segundos);
+
+            if (textoDoCronometro != null)
+            {
+                textoDoCronometro.text = "Up NV em: " + textoTempo;
+            }
         }
 
     }
@@ -213,4 +234,23 @@ public class BaseDoJogo : MonoBehaviour
         return pontosDeInstanciacao[ponto];
     }
 
+    private void atualizaTempoDeInstanciacaoDeObjetos()
+    {
+        float porcentagemRegressiva = 0.1f;
+
+        if (this.tempoParaInstanciarObstaculos >= 0.3f)
+        {
+            this.tempoParaInstanciarObstaculos -= this.tempoParaInstanciarObstaculos * porcentagemRegressiva;
+        }
+
+        if (this.tempoParaInstanciarVida >= 0.7f)
+        {
+            this.tempoParaInstanciarVida -= this.tempoParaInstanciarVida * porcentagemRegressiva;
+        }
+
+        if (this.tempoParaInstamciarMoeda >= 0.01)
+        {
+            this.tempoParaInstamciarMoeda -= this.tempoParaInstamciarMoeda * porcentagemRegressiva;
+        }
+    }
 }
