@@ -6,10 +6,10 @@ public class BaseDoJogo : MonoBehaviour
 {
     //Atributos privados
     private float tempoTotalParaMudancaDeNivel = 40.0f; // Tempo total em segundos
-    private float tempoParaIniciarOutroNivel = 15.0f; // Tempo de espera para iniciar novamente instancias de objetos
+    private float tempoParaIniciarOutroNivel = 10.0f; // Tempo de espera para iniciar novamente instancias de objetos
     private float tempoAtualDoNivel; // Tempo atual restante
-    private float tempoParaInstanciarObstaculos = 6.3f;
-    private float tempoParaInstanciarVida = 12.5f;
+    private float tempoParaInstanciarObstaculos = 2.3f;
+    private float tempoParaInstanciarVida = 10.0f;
     private float tempoParaInstamciarMoeda = 1.1f;
     private int nivelDoJogo = 0; //Nivel do jogo, conforme aumenta, a velocidade dos objetos aumentam tbm
     private List<GameObject> objetosInstanciados = new List<GameObject>(); // Lista de objetos instanciados
@@ -63,7 +63,7 @@ public class BaseDoJogo : MonoBehaviour
                 if (this.tempoParaIniciarOutroNivel <= 0f)
                 {
                     this.nivelDoJogo++; // Aumentando o nivel do jogo
-                    this.NivelDoJogo.text = "Nível: " + this.nivelDoJogo; // mudando o texto do nivel do jogo
+                    this.NivelDoJogo.text = ": " + this.nivelDoJogo; // mudando o texto do nivel do jogo
                     this.aumentaVelocidadeDosObjetos(); // aumentando a velocidade da movimentação do objetos instanciados
                     this.tempoAtualDoNivel = this.tempoTotalParaMudancaDeNivel; // Seta o padrão de tempo do jogo
                     this.atualizaTempoDeInstanciacaoDeObjetos();
@@ -118,7 +118,7 @@ public class BaseDoJogo : MonoBehaviour
             //Atualizando as informações de tempo no jogo
             if (textoDoCronometro != null)
             {
-                textoDoCronometro.text = "Tempo: " + textoTempo;
+                textoDoCronometro.text = ": " + textoTempo;
             }
         }
         else
@@ -129,7 +129,7 @@ public class BaseDoJogo : MonoBehaviour
 
             if (textoDoCronometro != null)
             {
-                textoDoCronometro.text = "Up NV em: " + textoTempo;
+                textoDoCronometro.text = ": " + textoTempo;
             }
         }
 
@@ -139,7 +139,7 @@ public class BaseDoJogo : MonoBehaviour
     {
         if (moedasDoJogador != null)
         {
-            moedasDoJogador.text = "Moedas: " + moedasColetadasPeloJogador;
+            moedasDoJogador.text = ": " + moedasColetadasPeloJogador;
         }
     }
 
@@ -147,14 +147,14 @@ public class BaseDoJogo : MonoBehaviour
     {
         if (vidasDoJogador != null)
         {
-            vidasDoJogador.text = "Vida: " + vidaDoJogador;
+            vidasDoJogador.text = ": " + vidaDoJogador;
         }
     }
 
     //Função para aumentar a velocidade de movimentação dos objetos instanciados sempre em 20%
     private void aumentaVelocidadeDosObjetos()
     {
-        this.velocidadeDeAcordoComONivel = this.velocidadeDeAcordoComONivel + (this.velocidadeDeAcordoComONivel * 0.2f);
+        this.velocidadeDeAcordoComONivel += this.velocidadeDeAcordoComONivel * 0.2f;
     }
 
     /**
@@ -238,12 +238,12 @@ public class BaseDoJogo : MonoBehaviour
     {
         float porcentagemRegressiva = 0.1f;
 
-        if (this.tempoParaInstanciarObstaculos >= 0.3f)
+        if (this.tempoParaInstanciarObstaculos >= 0.03f)
         {
             this.tempoParaInstanciarObstaculos -= this.tempoParaInstanciarObstaculos * porcentagemRegressiva;
         }
 
-        if (this.tempoParaInstanciarVida >= 0.7f)
+        if (this.tempoParaInstanciarVida >= 0.07f)
         {
             this.tempoParaInstanciarVida -= this.tempoParaInstanciarVida * porcentagemRegressiva;
         }

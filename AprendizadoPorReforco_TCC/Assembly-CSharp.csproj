@@ -62,9 +62,12 @@
     <Compile Include="Assets\Scripts\Objetos do jogo\InstanciaObjetos.cs" />
     <Compile Include="Assets\Scripts\Movimento.cs" />
     <Compile Include="Assets\Scripts\Objetos do jogo\Prefabs_Pontos.cs" />
+    <Compile Include="Assets\Scripts\Cameras\DivisaoCameras.cs" />
     <Compile Include="Assets\Scripts\Objetos do jogo\MovimentacaoObjeto.cs" />
     <Compile Include="Assets\Scripts\Base do jogo\BaseDoJogo.cs" />
     <Compile Include="Assets\Scripts\Controler\Colisao.cs" />
+    <Compile Include="Assets\Scripts\Agente\AgenteAprendizado.cs" />
+    <Compile Include="Assets\Scripts\Agente\exemplos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
