@@ -1,71 +1,63 @@
 using UnityEngine;
 
-public class Controle_AnimacaoPlayer : MonoBehaviour
-{
+public class Controle_AnimacaoPlayer : MonoBehaviour {
+
     private Animator idle;
     private float velocidadeCorrida = 12.5f;
     private bool teclaA_Pressionada;
     private bool teclaD_Pressionada;
     private bool teclaSpace_Pressionada;
+    //
 
-    void Start()
+    private void Start()
     {
         this.idle = GetComponent<Animator>();
         this.teclaA_Pressionada = false;
         this.teclaD_Pressionada = false;
-        this.teclaSpace_Pressionada = false;
+        this.teclaSpace_Pressionada = false; 
     }
 
-    void Update()
+    private void Update()
     {
-        this.AtivaDesativaTeclas();
-        this.MovimentaPersonagem();
-    }
+
+        if (BaseDoJogo.comecarOJogo)
+        {
+            this.AtivaDesativaTeclas();
+            this.MovimentaPersonagem();
+        }         
+    }    
 
     private void AtivaDesativaTeclas()
     {       
-        //Inicio - Pressionar Enter
-        if (BaseDoJogo.IniciarJogo)
-        {
-            this.DesativaAnimacoes();
-            this.idle.SetBool("CorrerFrente", true);            
-            Debug.Log("Enter");
-        }
 
         //Pressionar A
         if (Input.GetKeyDown(KeyCode.A))
         {
             this.teclaA_Pressionada = true;
-            print("Ativou A");
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
             this.teclaA_Pressionada = false;
-            print("Desativou A");
         }
 
         //Pressionar D
         if (Input.GetKeyDown(KeyCode.D))
         {
             this.teclaD_Pressionada = true;
-            print("Ativou D");
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
             this.teclaD_Pressionada = false;
-            print("Desativou D");
         }
 
         //Pressionar Space
         if (Input.GetKeyDown(KeyCode.Space))
         {
             this.teclaSpace_Pressionada = true;
-            print("Ativou o Pulo");
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             this.teclaSpace_Pressionada = false;
-            print("Desativou o Pulo");
         }
 
         this.ExecutaAnimacoes();
@@ -105,41 +97,35 @@ public class Controle_AnimacaoPlayer : MonoBehaviour
         transform.position += verticalMovement * Time.deltaTime * velocidadeCorrida;
     }
 
-
     private void ExecutaAnimacoes()
     {
-
-        if (BaseDoJogo.IniciarJogo)
+        if (!this.teclaA_Pressionada && !this.teclaD_Pressionada)
         {
+            this.DesativaAnimacoes();
+            this.idle.SetBool("CorrerFrente", true);
+        }
 
-            if (!this.teclaA_Pressionada && !this.teclaD_Pressionada)
-            {
-                this.DesativaAnimacoes();
-                this.idle.SetBool("CorrerFrente", true);
-            }
+        //correr para esquerda
+        if (this.teclaA_Pressionada)
+        {
+            this.DesativaAnimacoes();
+            this.idle.SetBool("CorrerEsquerda", true);
+        }
 
-            //correr para esquerda
-            if (this.teclaA_Pressionada)
-            {
-                this.DesativaAnimacoes();
-                this.idle.SetBool("CorrerEsquerda", true);
-            }
-
-            //correr para direita
-            if (this.teclaD_Pressionada )
-            {
-                this.DesativaAnimacoes();
-                this.idle.SetBool("CorrerDireita", true);
-            }
+        //correr para direita
+        if (this.teclaD_Pressionada )
+        {
+            this.DesativaAnimacoes();
+            this.idle.SetBool("CorrerDireita", true);
+        }
 
             //Pulando
-            if ( this.teclaSpace_Pressionada && this.idle.GetBool("CorrerFrente"))
-            {
-                this.DesativaAnimacoes();
-                this.idle.SetBool("Pular", true);
-            }
-            
-        }       
+        if ( this.teclaSpace_Pressionada && this.idle.GetBool("CorrerFrente"))
+        {
+            this.DesativaAnimacoes();
+            this.idle.SetBool("Pular", true);
+        }            
+               
     }
 
     private void DesativaAnimacoes()

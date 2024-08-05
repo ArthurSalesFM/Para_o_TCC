@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class Colisao : MonoBehaviour
-{
-    private void OnCollisionEnter(Collision collision)
-    {
-        switch (collision.gameObject.tag)
-        {
+public class Colisao : MonoBehaviour {
+
+    
+    private void OnCollisionEnter(Collision collision) {  
+
+        switch (collision.gameObject.tag) {
+
             case "moeda":
                 BaseDoJogo.moedasColetadasPeloJogador++;
                 Destroy(collision.gameObject);
@@ -18,15 +19,14 @@ public class Colisao : MonoBehaviour
                 break;
 
             case "vida":
-                if (BaseDoJogo.vidaDoJogador <= 4)
-                {
+                if (BaseDoJogo.vidaDoJogador <= 4) {
                     BaseDoJogo.vidaDoJogador++;
                 }
 
-                else if (BaseDoJogo.vidaDoJogador == 5)
-                {
+                else if (BaseDoJogo.vidaDoJogador == 5) {
                     BaseDoJogo.moedasColetadasPeloJogador += 20;
                 }
+
                 Destroy(collision.gameObject);
                 break;
         }

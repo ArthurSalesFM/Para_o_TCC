@@ -57,17 +57,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ControleMenuPrincipal\ControleMenuPrincipal.cs" />
+    <Compile Include="Assets\Scripts\Controler\Jogador.cs" />
     <Compile Include="Assets\Scripts\Controler\Controle_AnimacaoPlayer.cs" />
     <Compile Include="Assets\Scripts\ControleCenas\ControleCenas.cs" />
-    <Compile Include="Assets\Scripts\Objetos do jogo\InstanciaObjetos.cs" />
-    <Compile Include="Assets\Scripts\Movimento.cs" />
-    <Compile Include="Assets\Scripts\Objetos do jogo\Prefabs_Pontos.cs" />
-    <Compile Include="Assets\Scripts\Cameras\DivisaoCameras.cs" />
-    <Compile Include="Assets\Scripts\Objetos do jogo\MovimentacaoObjeto.cs" />
-    <Compile Include="Assets\Scripts\Base do jogo\BaseDoJogo.cs" />
-    <Compile Include="Assets\Scripts\Controler\Colisao.cs" />
     <Compile Include="Assets\Scripts\Agente\AgenteAprendizado.cs" />
+    <Compile Include="Assets\Scripts\Objetos_do_jogo\InstanciaObjetos.cs" />
+    <Compile Include="Assets\Scripts\Agente\Captura_Dados_Inciais\TabelaVelocidadeDeMudancaDePosicao.cs" />
+    <Compile Include="Assets\Scripts\Movimento.cs" />
+    <Compile Include="Assets\Scripts\Objetos_do_jogo\Prefabs_Pontos.cs" />
+    <Compile Include="Assets\Scripts\Agente\Captura_Dados_Inciais\PegaValores.cs" />
+    <Compile Include="Assets\Scripts\Base_Treinamento\Base_Treinamento.cs" />
+    <Compile Include="Assets\Scripts\Cameras\DivisaoCamerasJogo.cs" />
+    <Compile Include="Assets\Scripts\Objetos_do_jogo\MovimentacaoObjeto.cs" />
+    <Compile Include="Assets\Scripts\Base_do_jogo\BaseDoJogo.cs" />
     <Compile Include="Assets\Scripts\Agente\exemplos.cs" />
+    <Compile Include="Assets\Scripts\Cameras\CameraTreino.cs" />
+    <Compile Include="Assets\Scripts\Controler\Colisao.cs" />
+    <Compile Include="Assets\Scripts\TemposPadroes\TemposPadroes.cs" />
+    <Compile Include="Assets\Scripts\Agente\Captura_Dados_Inciais\TabelaBase.cs" />
+    <Compile Include="Assets\Scripts\Agente\ControleMovimentacao\ControleMovimentacaoIA.cs" />
+    <Compile Include="Assets\Scripts\Agente\ArmazenaDados\CriaAbreArquivoAFMS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -1,8 +1,47 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class AgenteAprendizado : MonoBehaviour
 {
     public LineRenderer linhaDoRaio;  // Adicione o LineRenderer via Unity Inspector
+    private ControleMovimentacaoIA controleDeAnimacaoIA;
+    private TabelaVelocidadeDeMudancaDePosicao tabelaVelocidadeDeMudancaDePosicao;
+
+
+    private void Start()
+    {
+
+        // Verificar se pontosDeInstanciacao está inicializado
+        if (Base_Treinamento.pontosDeInstanciacao == null || Base_Treinamento.pontosDeInstanciacao.Length == 0)
+        {
+            Debug.LogError("Base_Treinamento.pontosDeInstanciacao não está inicializado corretamente.");
+            return;
+        }
+
+        // Verificar se todos os elementos em pontosDeInstanciacao são diferentes de null
+        foreach (var posicao in Base_Treinamento.pontosDeInstanciacao)
+        {
+            if (posicao == null)
+            {
+                Debug.LogError("Um dos GameObjects em pontosDeInstanciacao é null.");
+                return;
+            }
+        }
+        this.controleDeAnimacaoIA = new ControleMovimentacaoIA();
+        this.tabelaVelocidadeDeMudancaDePosicao = new TabelaVelocidadeDeMudancaDePosicao(Base_Treinamento.pontosDeInstanciacao, controleDeAnimacaoIA.getVelocidadeCorrida());
+        this.tabelaVelocidadeDeMudancaDePosicao.printaTabela();
+    }
+
+
+    // Função chamada a cada quadro
+    void Update()
+    {
+        // A cada quadro, obtemos observações, tomamos decisões e executamos ações
+        bool observacao = ObterObservacao(out _);
+        TomarDecisao();
+        ExecutarAcao();
+        
+    }
+    //private List
 
     // Função para obter observações do ambiente
     private bool ObterObservacao(out string objetoDetectado)
@@ -113,6 +152,31 @@ public class AgenteAprendizado : MonoBehaviour
         //transform.Rotate(Vector3.up * velocidadeRotacao * Time.deltaTime);
     }
 
+  
+
+}*/
+
+using UnityEngine;
+
+public class AgenteAprendizado : MonoBehaviour
+{
+    public LineRenderer linhaDoRaio;  // Adicione o LineRenderer via Unity Inspector
+    private ControleMovimentacaoIA controleDeAnimacaoIA;
+    //private TabelaVelocidadeDeMudancaDePosicao tabelaVelocidadeDeMudancaDePosicao = new TabelaVelocidadeDeMudancaDePosicao();
+
+    private void Start()
+    {
+       this.controleDeAnimacaoIA = new ControleMovimentacaoIA();
+
+        // Adicionar verificação para getVelocidadeCorrida()
+        float velocidade = controleDeAnimacaoIA.getVelocidadeCorrida();
+        if (velocidade <= 0)
+        {
+            Debug.LogError("Velocidade de corrida é inválida.");
+            return;
+        }
+        //this.tabelaVelocidadeDeMudancaDePosicao.printaTabela();
+    }
 
     // Função chamada a cada quadro
     void Update()
@@ -122,4 +186,63 @@ public class AgenteAprendizado : MonoBehaviour
         TomarDecisao();
         ExecutarAcao();
     }
+
+    // Função para obter observações do ambiente
+    private bool ObterObservacao(out string objetoDetectado)
+    {
+        // Lógica para detecção de objetos ao redor
+        // ...
+        objetoDetectado = null;
+        return false;
+    }
+
+    // Função para executar ações com base nas observações
+    private void ExecutarAcao()
+    {
+        // Lógica para executar ações com base nas observações
+        string objetoDetectado;
+        if (ObterObservacao(out objetoDetectado))
+        {
+            Debug.Log($"Objeto detectado: {objetoDetectado}. Executando ação...");
+        }
+    }
+
+    // Função para tomar decisões com base nas observações
+    private void TomarDecisao()
+    {
+        // Lógica para tomar decisões com base nas observações
+        string objetoDetectado;
+        if (ObterObservacao(out objetoDetectado))
+        {
+            switch (objetoDetectado)
+            {
+                case "moeda":
+                    MoverEmDirecaoAoAlvo();  // Implemente essa função
+                    break;
+                case "barreira":
+                    EvitarObstaculo();  // Implemente essa função
+                    break;
+                case "vida":
+                    // Lógica para ação específica ao detectar um objeto "vida"
+                    break;
+                default:
+                    // Lógica padrão ou nenhuma ação se nenhum objeto detectado
+                    break;
+            }
+        }
+    }
+
+    private void MoverEmDirecaoAoAlvo()
+    {
+        // Exemplo: Movimenta o agente na direção do alvo (moeda)
+        //transform.Translate(Vector3.forward * velocidadeMovimento * Time.deltaTime);
+    }
+
+    private void EvitarObstaculo()
+    {
+        // Exemplo: Gira o agente para evitar a barreira
+        //transform.Rotate(Vector3.up * velocidadeRotacao * Time.deltaTime);
+    }
 }
+
+
