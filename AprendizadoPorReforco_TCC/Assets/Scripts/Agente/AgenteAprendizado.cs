@@ -5,25 +5,13 @@ public class AgenteAprendizado : MonoBehaviour
 {
     //public LineRenderer linhaDoRaio;  // Adicione o LineRenderer via Unity Inspector
     private ControleMovimentacaoIA controleDeAnimacaoIA;
-    private bool analisandoDados = false;
+    private bool pegandoOsDados = false;
+    //private bool analisandoDados = false;
     private string[,] matrizDeObjetos;
-
-    void Update()
-    {
-        // A cada quadro, obtemos observações, tomamos decisões e executamos ações        
-        bool observacao = ObterObservacao(out _);
-        TomarDecisao();
-        ExecutarAcao();
-    }
-
-    public string[,] getDadosDaMatriz()
-    {
-        return this.matrizDeObjetos;
-    }
 
     private void Start()
     {
-       this.controleDeAnimacaoIA = new ControleMovimentacaoIA();
+        this.controleDeAnimacaoIA = new ControleMovimentacaoIA();
 
         // Adicionar verificação para getVelocidadeCorrida()
         float velocidade = controleDeAnimacaoIA.getVelocidadeCorrida();
@@ -35,17 +23,30 @@ public class AgenteAprendizado : MonoBehaviour
         //this.tabelaVelocidadeDeMudancaDePosicao.printaTabela();
     }
 
-    // Função chamada a cada quadro
+    void Update()
+    {
+        // A cada quadro, obtemos observações, tomamos decisões e executamos ações
+
+        //bool observacao = ObterObservacao(out _);
+        
+    }
+
+    //Retorna a matriz com as informações do campo setado
+    public string[,] getDadosDaMatriz()
+    {
+        return this.matrizDeObjetos;
+    }
     
+    //
     public bool estaAnalisandoOsDados()
     {
-        return this.analisandoDados;
+        return this.pegandoOsDados;
     }
 
     public void setaMatrizParaAnalise(List<GameObject> objeto)
     {
 
-        this.analisandoDados = true;
+        this.pegandoOsDados = true;
         this.matrizDeObjetos = new string[objeto.Count, 8];
 
         for (int linha = 0; linha < objeto.Count; linha++)
@@ -109,9 +110,15 @@ public class AgenteAprendizado : MonoBehaviour
            }
             
         }
-        
+
+        //this.analisandoDados = true;
+        this.analisaMelhorCaminhoNaMatriz(this.matrizDeObjetos);
     }    
 
+
+    /*
+                PARA SETAR INFORMAÇÕES NA MATRIZ
+     */
     private void setaObstaculoNaMatriz(int indiceLinha, int colunaInicial, int quantidadeDePontosOcupados)
     {
         int pontosUsados = 0;        
@@ -167,6 +174,30 @@ public class AgenteAprendizado : MonoBehaviour
     {
         this.matrizDeObjetos[indiceLinha, colunaInicial] = "+";
     }
+
+
+    //
+    /*
+     
+                FUNÇÃO PARA ESCOLHER O MELHOR CAMINHO, O QUE DER MAIS PONTOS
+
+
+
+
+
+    ******************************** FALTA FAZER ******************
+    *
+    *
+    *
+    *fazer uma matriz recursiva para analisar todos os caminhos e escolher o melhor
+     
+     */
+    private void analisaMelhorCaminhoNaMatriz(string[,] matriz)
+    {
+        
+    }
+
+
 
     // Função para obter observações do ambiente
     private bool ObterObservacao(out string objetoDetectado)
