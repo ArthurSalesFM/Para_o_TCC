@@ -11,8 +11,7 @@ public class TabelaBase
     public TabelaBase( )
     {
         this.tabelaDeVelocidade = new float[8, 8];        
-    }
-    
+    }  
 
     
 

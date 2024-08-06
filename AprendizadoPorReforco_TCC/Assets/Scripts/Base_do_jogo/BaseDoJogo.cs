@@ -178,8 +178,8 @@ public class BaseDoJogo : MonoBehaviour {
 
             // Instanciando o Obstaculo na posição do objeto de referência e salvando uma referência para o objeto instanciado
             this.objetoInstanciado = Instantiate(this.qualObstaculoInstanciar(), this.posicaoReferencia, Quaternion.identity); //Instanciando objeto
-            this.objetoInstanciado.AddComponent<MovimentacaoObjeto>(); // Adicionando o script ao objeto instanciado
-            this.objetoInstanciado.GetComponent<MovimentacaoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
+            //this.objetoInstanciado.AddComponent<DadosDoObjeto>(); // Adicionando o script ao objeto instanciado
+            //this.objetoInstanciado.GetComponent<DadosDoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
             this.objetosInstanciados.Add(this.objetoInstanciado); // Adiciona o objeto à lista de objetos instanciados
         }
     }
@@ -193,8 +193,8 @@ public class BaseDoJogo : MonoBehaviour {
 
             // Instanciando o Obstaculo na posição do objeto de referência e salvando uma referência para o objeto instanciado
             this.objetoInstanciado = Instantiate(this.prefabs[13], this.posicaoReferencia, Quaternion.identity);
-            this.objetoInstanciado.AddComponent<MovimentacaoObjeto>(); // Adicionando o script ao objeto instanciado
-            this.objetoInstanciado.GetComponent<MovimentacaoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
+            //this.objetoInstanciado.AddComponent<DadosDoObjeto>(); // Adicionando o script ao objeto instanciado
+            //this.objetoInstanciado.GetComponent<DadosDoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
             this.objetosInstanciados.Add(this.objetoInstanciado); // Adiciona o objeto à lista de objetos instanciados
         }
     }
@@ -208,8 +208,8 @@ public class BaseDoJogo : MonoBehaviour {
 
             // Instanciando o Obstaculo na posição do objeto de referência e salvando uma referência para o objeto instanciado
             this.objetoInstanciado = Instantiate(this.prefabs[12], this.posicaoReferencia, Quaternion.identity);
-            this.objetoInstanciado.AddComponent<MovimentacaoObjeto>(); // Adicionando o script ao objeto instanciado
-            this.objetoInstanciado.GetComponent<MovimentacaoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
+            //this.objetoInstanciado.AddComponent<DadosDoObjeto>(); // Adicionando o script ao objeto instanciado
+            //this.objetoInstanciado.GetComponent<DadosDoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
             this.objetosInstanciados.Add(this.objetoInstanciado); // Adiciona o objeto à lista de objetos instanciados
         }
     }

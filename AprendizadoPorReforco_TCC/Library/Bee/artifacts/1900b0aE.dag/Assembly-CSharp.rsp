@@ -370,8 +370,8 @@
 "Assets/Scripts/Controler/Controle_AnimacaoPlayer.cs"
 "Assets/Scripts/Controler/Jogador.cs"
 "Assets/Scripts/Movimento.cs"
+"Assets/Scripts/Objetos_do_jogo/DadosDoObjeto.cs"
 "Assets/Scripts/Objetos_do_jogo/InstanciaObjetos.cs"
-"Assets/Scripts/Objetos_do_jogo/MovimentacaoObjeto.cs"
 "Assets/Scripts/Objetos_do_jogo/Prefabs_Pontos.cs"
 "Assets/Scripts/TemposPadroes/TemposPadroes.cs"
 -langversion:9.0

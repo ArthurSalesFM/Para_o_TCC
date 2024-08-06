@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class Base_Treinamento : MonoBehaviour
 {
@@ -9,13 +10,15 @@ public class Base_Treinamento : MonoBehaviour
     private float tempoAtualDoNivel; // Tempo atual restante
     //private TabelaVelocidadeDeMudancaDePosicao tabaleDaVelocidadeDeMudancaDePosicao;
 
+    public GameObject IA;
+
     //
     private TemposPadroes temposPadroes;
     private TabelaVelocidadeDeMudancaDePosicao tabelaVelocidadeDeMudancaDePosicao = new TabelaVelocidadeDeMudancaDePosicao();
     private CriaAbreArquivoAFMS criarAbrirAquivoAFMS = new CriaAbreArquivoAFMS();
 
     private int nivelDoJogo = 0; //Nivel do jogo, conforme aumenta, a velocidade dos objetos aumentam tbm
-    private List<GameObject> objetosInstanciados = new List<GameObject>(); // Lista de objetos instanciados
+    public List<GameObject> objetosInstanciados = new List<GameObject>(); // Lista de objetos instanciados
     private Vector3 posicaoReferencia; // para pegar a referencia da posição do ponto selecionado
     private float velocidadeDeAcordoComONivel; // variavel para controlar a velocidade dos objetos instanciados
     private GameObject objetoInstanciado;
@@ -26,7 +29,9 @@ public class Base_Treinamento : MonoBehaviour
     public TMP_Text moedasDoJogador; // Referencia ao texto de quantidade de moedas do jogador
     public TMP_Text vidasDoJogador; // Quantidade de vida do jogador
     public GameObject[] prefabs; // Referência aos Prefabs existentes
+    private int qualObjetoFoiInstanciado;
     public GameObject[] pontosDeInstanciacao; // Referência aos objetos existentes na cena(Onde os prefabs serao instanciados
+    private int qualPontoFoiInstanciado;
     
 
     //Atributos publicos e estáticos
@@ -58,16 +63,13 @@ public class Base_Treinamento : MonoBehaviour
 
     //Função padrão dos scripts que herdam da classe MonoBehaviour
     void Update()
-    {
-
-        
+    {        
         if (Input.GetKeyDown(KeyCode.Return)) // O jogo só começará quando o enter for pressionado
         {
             //IniciarJogo = true; // Jogo iniciado
             comecarOJogo = true;
             //this.jogadorP.setInciarAcoes(this.comecarOJogo);
         }
-
 
         if (comecarOJogo)
         {
@@ -120,6 +122,23 @@ public class Base_Treinamento : MonoBehaviour
             this.DestruirObjetosNaPosicaoZ();
             this.atualizaQuantidadesDeMoedasDoJogador();
             this.atualizaQuantidadeDeVidasDoJogador();
+
+            if (objetosInstanciados.Count > 17)
+            {
+                if (!IA.GetComponent<AgenteAprendizado>().estaAnalisandoOsDados()) 
+                {
+                    IA.GetComponent<AgenteAprendizado>().setaMatrizParaAnalise(objetosInstanciados.GetRange(3,15));
+                    this.criarAbrirAquivoAFMS.GravarMatriz(IA.GetComponent<AgenteAprendizado>().getDadosDaMatriz(), "teste.AFMS");
+                }
+                
+            }
+
+            /*if(this.objetosInstanciados.Count != 0)
+            {
+                Debug.Log(this.objetosInstanciados[0].GetComponent<DadosDoObjeto>().getTempoRestanteParaChegar());
+            }*/
+
+            
         }
     }
 
@@ -190,8 +209,10 @@ public class Base_Treinamento : MonoBehaviour
 
             // Instanciando o Obstaculo na posição do objeto de referência e salvando uma referência para o objeto instanciado
             this.objetoInstanciado = Instantiate(this.qualObstaculoInstanciar(), this.posicaoReferencia, Quaternion.identity); //Instanciando objeto
-            this.objetoInstanciado.AddComponent<MovimentacaoObjeto>(); // Adicionando o script ao objeto instanciado
-            this.objetoInstanciado.GetComponent<MovimentacaoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
+            this.objetoInstanciado.AddComponent<DadosDoObjeto>(); // Adicionando o script ao objeto instanciado
+            this.objetoInstanciado.GetComponent<DadosDoObjeto>().instaciarObjetos(this.velocidadeDeAcordoComONivel, this.nivelDoJogo, this.qualPontoFoiInstanciado, this.qualObjetoFoiInstanciado);
+            //this.objetoInstanciado.GetComponent<DadosDoObjeto>().setNivelObjeto(this.nivelDoJogo);
+            //this.objetoInstanciado.GetComponent<DadosDoObjeto>().setPontoDeOrigem(this.qualPontoFoiInstanciado);
             this.objetosInstanciados.Add(this.objetoInstanciado); // Adiciona o objeto à lista de objetos instanciados
         }
     }
@@ -205,8 +226,9 @@ public class Base_Treinamento : MonoBehaviour
 
             // Instanciando o Obstaculo na posição do objeto de referência e salvando uma referência para o objeto instanciado
             this.objetoInstanciado = Instantiate(this.prefabs[13], this.posicaoReferencia, Quaternion.identity);
-            this.objetoInstanciado.AddComponent<MovimentacaoObjeto>(); // Adicionando o script ao objeto instanciado
-            this.objetoInstanciado.GetComponent<MovimentacaoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
+            this.qualObjetoFoiInstanciado = 13;
+            this.objetoInstanciado.AddComponent<DadosDoObjeto>(); // Adicionando o script ao objeto instanciado
+            this.objetoInstanciado.GetComponent<DadosDoObjeto>().instaciarObjetos(this.velocidadeDeAcordoComONivel, this.nivelDoJogo, this.qualPontoFoiInstanciado, this.qualObjetoFoiInstanciado);
             this.objetosInstanciados.Add(this.objetoInstanciado); // Adiciona o objeto à lista de objetos instanciados
         }
     }
@@ -220,8 +242,9 @@ public class Base_Treinamento : MonoBehaviour
 
             // Instanciando o Obstaculo na posição do objeto de referência e salvando uma referência para o objeto instanciado
             this.objetoInstanciado = Instantiate(this.prefabs[12], this.posicaoReferencia, Quaternion.identity);
-            this.objetoInstanciado.AddComponent<MovimentacaoObjeto>(); // Adicionando o script ao objeto instanciado
-            this.objetoInstanciado.GetComponent<MovimentacaoObjeto>().setaVelocidadeDosObjetos(this.velocidadeDeAcordoComONivel);
+            this.qualObjetoFoiInstanciado = 12;
+            this.objetoInstanciado.AddComponent<DadosDoObjeto>(); // Adicionando o script ao objeto instanciado
+            this.objetoInstanciado.GetComponent<DadosDoObjeto>().instaciarObjetos(this.velocidadeDeAcordoComONivel, this.nivelDoJogo, this.qualPontoFoiInstanciado, this.qualObjetoFoiInstanciado);
             this.objetosInstanciados.Add(this.objetoInstanciado); // Adiciona o objeto à lista de objetos instanciados
         }
     }
@@ -245,13 +268,15 @@ public class Base_Treinamento : MonoBehaviour
     private GameObject qualObstaculoInstanciar()
     {
         int objeto = UnityEngine.Random.Range(0, 12);
-        return prefabs[objeto];
+        this.qualObjetoFoiInstanciado = objeto;
+        return this.prefabs[objeto];
     }
 
     //Função para retornar um ponto de instancia aleatorio
     private GameObject EmQualPontoDeveSerInstanciado()
     {
         int ponto = UnityEngine.Random.Range(0, pontosDeInstanciacao.Length);
+        this.qualPontoFoiInstanciado = ponto;
         return pontosDeInstanciacao[ponto];
     }
 

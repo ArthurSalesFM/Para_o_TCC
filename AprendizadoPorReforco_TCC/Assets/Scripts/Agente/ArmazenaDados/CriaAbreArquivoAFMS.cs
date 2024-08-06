@@ -63,6 +63,55 @@ public class CriaAbreArquivoAFMS
         }
     }
 
+    public void GravarMatriz(string[,] matriz, string nomeDoArquivo)
+    {
+        string caminhoCompleto = CaminhoCompleto(nomeDoArquivo);
+
+        // Verifica se o arquivo já existe
+        if (File.Exists(caminhoCompleto))
+        {
+            Debug.LogWarning("O arquivo já existe e não será alterado: " + caminhoCompleto);
+            return;
+        }
+
+        try
+        {
+            // Cria o diretório se não existir
+            Directory.CreateDirectory(Path.GetDirectoryName(caminhoCompleto));
+
+            // Grava a matriz no arquivo
+            using (StreamWriter writer = new StreamWriter(caminhoCompleto))
+            {
+                int linhas = matriz.GetLength(0);
+                int colunas = matriz.GetLength(1);
+
+                for (int i = 0; i < linhas; i++)
+                {
+                    for (int j = 0; j < colunas; j++)
+                    {
+                        writer.Write(matriz[i, j]);
+
+                        // Adiciona um separador, como uma vírgula
+                        if (j < colunas - 1)
+                        {
+                            writer.Write("|");
+                        }
+                    }
+
+                    // Adiciona uma nova linha para a próxima linha da matriz
+                    writer.WriteLine();
+                }
+            }
+
+            // Exibe o caminho completo onde o arquivo foi gravado
+            Debug.Log("Matriz gravada com sucesso em " + caminhoCompleto);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Erro ao gravar a matriz: " + e.Message);
+        }
+    }
+
     // Método para ler a matriz de um arquivo de texto
     public float[,] LerMatriz(string nomeDoArquivo)
     {
