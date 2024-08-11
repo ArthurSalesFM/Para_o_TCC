@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using System;
-using System.Linq;
 
 public class Base_Treinamento : MonoBehaviour
 {
@@ -31,8 +29,7 @@ public class Base_Treinamento : MonoBehaviour
     public GameObject[] prefabs; // Referência aos Prefabs existentes
     private int qualObjetoFoiInstanciado;
     public GameObject[] pontosDeInstanciacao; // Referência aos objetos existentes na cena(Onde os prefabs serao instanciados
-    private int qualPontoFoiInstanciado;
-    
+    private int qualPontoFoiInstanciado;    
 
     //Atributos publicos e estáticos
     //public static bool IniciarJogo = false; // Inicio do jogo
@@ -125,12 +122,12 @@ public class Base_Treinamento : MonoBehaviour
 
             if (objetosInstanciados.Count > 17)
             {
-                if (!IA.GetComponent<AgenteAprendizado>().estaAnalisandoOsDados()) 
+                if (!IA.GetComponent<AgenteAprendizado>().estaAnalisandoOsDados())
                 {
-                    IA.GetComponent<AgenteAprendizado>().setaMatrizParaAnalise(objetosInstanciados.GetRange(3,15));
+                    IA.GetComponent<AgenteAprendizado>().setaMatrizParaAnalise(objetosInstanciados.GetRange(0, 12), pontosDeInstanciacao);
                     this.criarAbrirAquivoAFMS.GravarMatriz(IA.GetComponent<AgenteAprendizado>().getDadosDaMatriz(), "teste.AFMS");
                 }
-                
+                              
             }
 
             /*if(this.objetosInstanciados.Count != 0)

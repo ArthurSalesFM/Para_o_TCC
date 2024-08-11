@@ -360,6 +360,7 @@
 "Assets/Scripts/Agente/Captura_Dados_Inciais/TabelaVelocidadeDeMudancaDePosicao.cs"
 "Assets/Scripts/Agente/ControleMovimentacao/ControleMovimentacaoIA.cs"
 "Assets/Scripts/Agente/exemplos.cs"
+"Assets/Scripts/Agente/MatrizesEValores.cs"
 "Assets/Scripts/Base_do_jogo/BaseDoJogo.cs"
 "Assets/Scripts/Base_Treinamento/Base_Treinamento.cs"
 "Assets/Scripts/Cameras/CameraTreino.cs"

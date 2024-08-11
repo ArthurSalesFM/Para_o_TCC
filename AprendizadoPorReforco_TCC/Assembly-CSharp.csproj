@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Agente\ArmazenaDados\CriaAbreArquivoAFMS.cs" />
     <Compile Include="Assets\Scripts\Agente\Captura_Dados_Inciais\TabelaBase.cs" />
     <Compile Include="Assets\Scripts\Agente\ControleMovimentacao\ControleMovimentacaoIA.cs" />
+    <Compile Include="Assets\Scripts\Agente\MatrizesEValores.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
