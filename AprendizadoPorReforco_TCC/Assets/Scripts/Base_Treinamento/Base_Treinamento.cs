@@ -125,7 +125,7 @@ public class Base_Treinamento : MonoBehaviour
                 if (!IA.GetComponent<AgenteAprendizado>().estaAnalisandoOsDados())
                 {
                     IA.GetComponent<AgenteAprendizado>().setaMatrizParaAnalise(objetosInstanciados.GetRange(0, 12), pontosDeInstanciacao);
-                    this.criarAbrirAquivoAFMS.GravarMatriz(IA.GetComponent<AgenteAprendizado>().getDadosDaMatriz(), "teste.AFMS");
+                    //this.criarAbrirAquivoAFMS.GravarMatriz(IA.GetComponent<AgenteAprendizado>().getDadosDaMatriz(), "teste.AFMS");
                 }
                               
             }

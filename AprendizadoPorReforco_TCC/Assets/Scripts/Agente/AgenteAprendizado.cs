@@ -10,7 +10,9 @@ public class AgenteAprendizado : MonoBehaviour
     //private bool analisandoDados = false;
     private string[,] matrizDeObjetos;
     private float[] pontosOndeDeveIrIA;
+    private int quantidadeMaximaDePontos = 0;
     private int pontoAtualDaIa = 3;
+    private ArvoreBinaria arvoreBase = new ArvoreBinaria();
 
     private void Start()
     {
@@ -50,7 +52,7 @@ public class AgenteAprendizado : MonoBehaviour
     {
 
         this.pegandoOsDados = true;
-        this.matrizDeObjetos = new string[objeto.Count + 1, 8];
+        this.matrizDeObjetos = new string[objeto.Count , 8];
         this.pontosOndeDeveIrIA = new float[pontosDeMovimentacao.Length];
 
 
@@ -60,6 +62,8 @@ public class AgenteAprendizado : MonoBehaviour
             this.pontosOndeDeveIrIA[x] = pontosDeMovimentacao[x].transform.position.x; 
         }
         
+
+        //Setando os tipos de objetos 
         for (int linha = 0; linha < objeto.Count; linha++)
         {
             
@@ -119,34 +123,17 @@ public class AgenteAprendizado : MonoBehaviour
            {
                 this.setaMoedaNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem());
            }
-           else
-            {
-                this.setaCaminhoLivre(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem());
-            }
             
         }
               
-        string[,] melhorCaminhoMatriz = this.encontrarMelhorCaminho(matrizDeObjetos, 0, 7);
+        string[,] melhorCaminhoMatriz = this.caminhoMaisVantajoso(matrizDeObjetos);
 
-        this.imprimirMatriz(melhorCaminhoMatriz);
-        //Debug.Log("%%%%%%%%%%   QUANTIDADE DE TESTES: " + (matrizDeObjetos.GetLength(0) - 1) * matrizDeObjetos.GetLength(1));
+        this.imprimirMatriz(melhorCaminhoMatriz, "Caminho mais vantajoso");
+        Debug.Log("\nQuantidade total de pontos possível : " + this.quantidadeMaximaDePontos );
 
-        /*
-        string saida = "";
-        for (int i = 0; i < melhorCaminhoMatriz.GetLength(0); i++)
-        {
-            for (int j = 0; j < melhorCaminhoMatriz.GetLength(1); j++)
-            {
-                saida += melhorCaminhoMatriz[i, j] + " | ";
-                //Debug.Log();
-            }
-            saida += "\n";
-        }
+        arvoreBase.Inserir(this.quantidadeMaximaDePontos, melhorCaminhoMatriz);
 
-        Debug.Log(saida);
-        */
-        //this.analisandoDados = true;
-        //this.analisaMelhorCaminhoNaMatriz(this.matrizDeObjetos);
+
     }    
 
     /*
@@ -161,7 +148,7 @@ public class AgenteAprendizado : MonoBehaviour
             {
                 if (pontosUsados < 2)
                 {
-                    this.matrizDeObjetos[indiceLinha + 1, comeca] = "X";
+                    this.matrizDeObjetos[indiceLinha , comeca] = "X";
                     pontosUsados++;
                 }
                 else if(pontosUsados == 2)
@@ -170,7 +157,7 @@ public class AgenteAprendizado : MonoBehaviour
                 }
                 else if(pontosUsados == 3)
                 {
-                    this.matrizDeObjetos[indiceLinha + 1, comeca] = "X";
+                    this.matrizDeObjetos[indiceLinha, comeca] = "X";
                     pontosUsados++;
                 }
                 else
@@ -185,7 +172,7 @@ public class AgenteAprendizado : MonoBehaviour
             {
                 if (pontosUsados < quantidadeDePontosOcupados)
                 {
-                    this.matrizDeObjetos[indiceLinha + 1, comeca] = "X";
+                    this.matrizDeObjetos[indiceLinha , comeca] = "X";
                     pontosUsados++;
                 }
                 else
@@ -200,151 +187,19 @@ public class AgenteAprendizado : MonoBehaviour
 
     private void setaMoedaNaMatriz(int indiceLinha, int colunaInicial)
     {
-        this.matrizDeObjetos[indiceLinha + 1, colunaInicial] = "$";
+        this.matrizDeObjetos[indiceLinha , colunaInicial] = "$";
     }
 
     private void setaVidaNaMatriz(int indiceLinha, int colunaInicial)
     {
-        this.matrizDeObjetos[indiceLinha + 1, colunaInicial] = "+";
+        this.matrizDeObjetos[indiceLinha, colunaInicial] = "+";
     }
 
-    private void setaCaminhoLivre(int indiceLinha, int colunaInicial)
+    //**************************************************************************************************************************************
+
+    private void imprimirMatriz(string[,] matriz, string texto)
     {
-        this.matrizDeObjetos[indiceLinha + 1, colunaInicial] = "*";
-    }
-
-
-
-
-
-
-    //
-    /*
-     
-                FUNÇÃO PARA ESCOLHER O MELHOR CAMINHO, O QUE DER MAIS PONTOS
-
-
-
-
-
-    ******************************** FALTA FAZER ******************
-    *
-    *
-    *
-    *fazer uma matriz recursiva para analisar todos os caminhos e escolher o melhor
-     
-     
-    private void analisaMelhorCaminhoNaMatriz(string[,] matriz)
-    {
-        
-    }*/
-
-
-    private int caminhoMaisVantajoso(string[,] matriz, int linha, int coluna, string[,] caminhoAtual, ref string[,] melhorCaminho, ref int melhorValor)
-    {
-        // Caso base: se chegou na última linha da matriz
-        if (linha == matriz.GetLength(0) - 1)
-        {
-            caminhoAtual[linha, coluna] = "!";
-            int valorAtual = calcularValorCaminho(caminhoAtual);
-            if (valorAtual > melhorValor)
-            {
-                melhorValor = valorAtual;
-                melhorCaminho = (string[,])caminhoAtual.Clone(); // Copia o caminho atual para o melhor caminho
-            }
-            caminhoAtual[linha, coluna] = matriz[linha, coluna]; // Restaura o valor original
-            return valorAtual;
-        }
-
-        // Marca a célula atual como parte do caminho
-        caminhoAtual[linha, coluna] = "!";
-
-        // Movimentos possíveis: frente, diagonal à esquerda, diagonal à direita
-        int maxValor = int.MinValue;
-
-        // Movimento para frente (mesma linha, coluna + 1)
-        if (coluna + 1 < matriz.GetLength(1))
-        {
-            int valor = caminhoMaisVantajoso(matriz, linha + 1, coluna, caminhoAtual, ref melhorCaminho, ref melhorValor);
-            if (valor > maxValor)
-                maxValor = valor;
-        }
-
-        // Movimento diagonal à esquerda (linha - 1, coluna + 1)
-        if (coluna > 0 && linha + 1 < matriz.GetLength(0))
-        {
-            int valor = caminhoMaisVantajoso(matriz, linha + 1, coluna - 1, caminhoAtual, ref melhorCaminho, ref melhorValor);
-            if (valor > maxValor)
-                maxValor = valor;
-        }
-
-        // Movimento diagonal à direita (linha + 1, coluna + 1)
-        if (coluna < matriz.GetLength(1) - 1 && linha + 1 < matriz.GetLength(0))
-        {
-            int valor = caminhoMaisVantajoso(matriz, linha + 1, coluna + 1, caminhoAtual, ref melhorCaminho, ref melhorValor);
-            if (valor > maxValor)
-                maxValor = valor;
-        }
-
-        // Desmarca a célula atual do caminho
-        caminhoAtual[linha, coluna] = matriz[linha, coluna];
-
-        return this.valorCelula(matriz[linha, coluna]) + maxValor;
-    }
-
-    private int calcularValorCaminho(string[,] caminho)
-    {
-        int valorTotal = 0;
-        for (int i = 0; i < caminho.GetLength(0); i++)
-        {
-            for (int j = 0; j < caminho.GetLength(1); j++)
-            {
-                valorTotal += this.valorCelula(caminho[i, j]);
-            }
-        }
-        return valorTotal;
-    }
-
-    private string[,] encontrarMelhorCaminho(string[,] matriz, int linhaJogador, int colunaJogador)
-    {
-        string[,] caminhoAtual = new string[matriz.GetLength(0), matriz.GetLength(1)];
-        string[,] melhorCaminho = new string[matriz.GetLength(0), matriz.GetLength(1)];
-        int melhorValor = int.MinValue;
-
-        for ()
-        {
-
-            /*
-             
-                        VER UMA FORMA DE REALIZAR UMA RECURSÃO ATÉ CHEGAR NA ULTIMA LINHA, TODOS OS CAMINHOS POSSIVEIS E PEGAR O QUE MAIS TEM PONTOS
-                    
-
-                        A CLASSE QUE SALVA ESSES DADOS JÁ FOI CRIADA, CHAMA-SE MatrizesEValores
-             
-             
-             
-             */
-
-        }
-
-        // Inicializa o caminhoAtual com o conteúdo da matriz
-        for (int i = 1; i < matriz.GetLength(0); i++)
-        {
-            for (int j = 0; j < matriz.GetLength(1); j++)
-            {
-                caminhoAtual[i, j] = matriz[i, j];
-            }
-        }
-
-        // Inicia a busca pelo melhor caminho
-        this.caminhoMaisVantajoso(matriz, linhaJogador, colunaJogador, caminhoAtual, ref melhorCaminho, ref melhorValor);
-
-        return melhorCaminho;
-    }
-
-    private void imprimirMatriz(string[,] matriz)
-    {
-        string saida = "\n************************************* Melhor Caminho Encontrado *************************************\n";
+        string saida = "\n*************************************" + texto + "*************************************\n";
 
         for (int i = 0; i < matriz.GetLength(0); i++)
         {
@@ -358,78 +213,49 @@ public class AgenteAprendizado : MonoBehaviour
         Debug.Log(saida);
     }
 
-    private int caminhoMaisVantajoso(string[,] matriz, int linha, int coluna, string[,] caminhoAtual, ref string[,] melhorCaminho, ref int melhorValor, int somaAtual)
+    private string[,] caminhoMaisVantajoso(string[,] matriz)
     {
-        // Adiciona o valor da célula atual à soma acumulada
-        somaAtual += this.valorCelula(matriz[linha, coluna]);
-
-        // Marca a célula atual como parte do caminho
-        caminhoAtual[linha, coluna] = "!";
-
-        // Caso base: se chegou na última coluna, verifica se a soma atual é a melhor
-        if (coluna == matriz.GetLength(1) - 1)
+        for(int linha = 0; linha < matriz.GetLength(0); linha++)
         {
-            if (somaAtual > melhorValor)
+            for(int coluna = 0; coluna < matriz.GetLength(1); coluna++)
             {
-                melhorValor = somaAtual;
-                melhorCaminho = (string[,])caminhoAtual.Clone(); // Copia o caminho atual para o melhor caminho
+                if (matriz[linha, coluna] == "$" || matriz[linha, coluna] == "+")
+                {
+                    if (matriz[linha, coluna] == "$")
+                    {
+                        this.quantidadeMaximaDePontos += 10;
+                    }
+                    else
+                    {
+                        this.quantidadeMaximaDePontos += 30;
+                    }
+                    matriz[linha, coluna] = "!";
+                }
+                else if (matriz[linha, coluna] == "" || matriz[linha, coluna] == null)
+                {
+                    matriz[linha, coluna] = " . ";
+                }
+                else
+                {
+                    for (int coluna2 = 0; coluna2 < matriz.GetLength(1); coluna2++)
+                    {
+                        if (matriz[linha, coluna2] == "" || matriz[linha, coluna2] == " . " || matriz[linha, coluna2] == null)
+                        {
+                            matriz[linha, coluna2] = "!";
+                        }
+                    }
+                    this.quantidadeMaximaDePontos += 1;
+                    coluna = matriz.GetLength(1) + 10;
+                }
             }
-            // Restaura o valor original para permitir outras explorações
-            caminhoAtual[linha, coluna] = matriz[linha, coluna];
-            return somaAtual;
         }
 
-        // Movimentos possíveis: frente, diagonal à esquerda, diagonal à direita
-        int maxValor = int.MinValue;
-
-        // Movimento para frente (mesma linha, coluna + 1)
-        if (coluna + 1 < matriz.GetLength(1))
-        {
-            int valor = caminhoMaisVantajoso(matriz, linha, coluna + 1, caminhoAtual, ref melhorCaminho, ref melhorValor, somaAtual);
-            if (valor > maxValor)
-                maxValor = valor;
-        }
-
-        // Movimento diagonal à esquerda (linha - 1, coluna + 1)
-        if (linha > 0 && coluna + 1 < matriz.GetLength(1))
-        {
-            int valor = caminhoMaisVantajoso(matriz, linha - 1, coluna + 1, caminhoAtual, ref melhorCaminho, ref melhorValor, somaAtual);
-            if (valor > maxValor)
-                maxValor = valor;
-        }
-
-        // Movimento diagonal à direita (linha + 1, coluna + 1)
-        if (linha < matriz.GetLength(0) - 1 && coluna + 1 < matriz.GetLength(1))
-        {
-            int valor = caminhoMaisVantajoso(matriz, linha + 1, coluna + 1, caminhoAtual, ref melhorCaminho, ref melhorValor, somaAtual);
-            if (valor > maxValor)
-                maxValor = valor;
-        }
-
-        // Desmarca a célula atual do caminho
-        caminhoAtual[linha, coluna] = matriz[linha, coluna];
-
-        return maxValor;
+        return matriz;
     }
 
-    private int valorCelula(string celula)
-    {
-        if (celula == "*")
-            return 10;  // Valor da moeda
-        else if (celula == "+")
-            return 30;   // Valor da vida
-        else if (celula == "X")
-            return -50;  // Penalidade para barreiras
-        else
-            return 1;   // Células vazias ou sem valor específico
-    }
-
-  
 
 
-
-
-
+    //**************************************************************************************************************************************
 
     // Função para obter observações do ambiente
     private bool ObterObservacao(out string objetoDetectado)
