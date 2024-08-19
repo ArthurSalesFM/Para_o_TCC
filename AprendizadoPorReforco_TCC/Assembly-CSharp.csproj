@@ -57,8 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ControleMenuPrincipal\ControleMenuPrincipal.cs" />
+    <Compile Include="Assets\Scripts\Controler\ControleAnimacaoIA.cs" />
     <Compile Include="Assets\Scripts\Controler\Jogador.cs" />
-    <Compile Include="Assets\Scripts\Controler\Controle_AnimacaoPlayer.cs" />
+    <Compile Include="Assets\Scripts\01_JOGO\Controle_AnimacaoPlayer.cs" />
     <Compile Include="Assets\Scripts\ControleCenas\ControleCenas.cs" />
     <Compile Include="Assets\Scripts\Agente\Arvore\ArvoreBinaria.cs" />
     <Compile Include="Assets\Scripts\Agente\AgenteAprendizado.cs" />
@@ -76,11 +77,13 @@
     <Compile Include="Assets\Scripts\Cameras\CameraTreino.cs" />
     <Compile Include="Assets\Scripts\Agente\Arvore\NoPrincipalDaArvore.cs" />
     <Compile Include="Assets\Scripts\Agente\Arvore\TestaTodosOsCaminhos.cs" />
-    <Compile Include="Assets\Scripts\Controler\Colisao.cs" />
+    <Compile Include="Assets\Scripts\01_JOGO\Colisao.cs" />
     <Compile Include="Assets\Scripts\TemposPadroes\TemposPadroes.cs" />
     <Compile Include="Assets\Scripts\Agente\ArmazenaDados\CriaAbreArquivoAFMS.cs" />
     <Compile Include="Assets\Scripts\Agente\Captura_Dados_Inciais\TabelaBase.cs" />
     <Compile Include="Assets\Scripts\Agente\ControleMovimentacao\ControleMovimentacaoIA.cs" />
+    <Compile Include="Assets\Scripts\01_JOGO\Controle_AnimacaoPlayer_2.cs" />
+    <Compile Include="Assets\Scripts\01_JOGO\Colisao_.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

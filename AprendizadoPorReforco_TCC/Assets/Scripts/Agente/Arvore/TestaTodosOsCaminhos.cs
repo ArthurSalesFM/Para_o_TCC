@@ -35,9 +35,10 @@ public class TestaTodosOsCaminhos
     {
         string[,] caminho = new string[matriz.GetLength(0), matriz.GetLength(1)];
 
-        this.caminhosPossiveis.Add(criaCaminho(caminho, 0, caminho.GetLength(1)) );
+        //this.caminhosPossiveis.Add(criaCaminho(caminho, 0, caminho.GetLength(1)) );
     }
 
+    /*
     private string[,] criaCaminho(string[,] matriz, int inicio, int fim)
     {
 
@@ -45,6 +46,7 @@ public class TestaTodosOsCaminhos
         
         return caminhos;
     }
+    */
 
     private void ImprimirCaminhosPossiveis()
     {

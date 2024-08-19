@@ -8,11 +8,11 @@ public class Base_Treinamento : MonoBehaviour
     private float tempoAtualDoNivel; // Tempo atual restante
     //private TabelaVelocidadeDeMudancaDePosicao tabaleDaVelocidadeDeMudancaDePosicao;
 
-    public GameObject IA;
+    public AgenteAprendizado IA;
 
     //
     private TemposPadroes temposPadroes;
-    private TabelaVelocidadeDeMudancaDePosicao tabelaVelocidadeDeMudancaDePosicao = new TabelaVelocidadeDeMudancaDePosicao();
+    //private TabelaVelocidadeDeMudancaDePosicao tabelaVelocidadeDeMudancaDePosicao = new TabelaVelocidadeDeMudancaDePosicao();
     private CriaAbreArquivoAFMS criarAbrirAquivoAFMS = new CriaAbreArquivoAFMS();
 
     private int nivelDoJogo = 0; //Nivel do jogo, conforme aumenta, a velocidade dos objetos aumentam tbm
@@ -38,9 +38,12 @@ public class Base_Treinamento : MonoBehaviour
     public static int vidaDoJogador = 5;
 
 
+    
+
     //Função padrão dos scripts que herdam da classe MonoBehaviour
     void Start()
     {
+        
         //this.jogadorP = new Jogador();
         comecarOJogo = false;
         //this.tabaleDaVelocidadeDeMudancaDePosicao = new TabelaVelocidadeDeMudancaDePosicao(pontosDeInstanciacao, temposPadroes.);
@@ -50,12 +53,13 @@ public class Base_Treinamento : MonoBehaviour
         this.AtualizarTextoCronometro(1); // Atualiza o texto do cronometro inicialmente
         this.atualizaQuantidadesDeMoedasDoJogador();
         this.atualizaQuantidadeDeVidasDoJogador();
-        this.tabelaVelocidadeDeMudancaDePosicao.setaValoresNaTabela(pontosDeInstanciacao, 12.5f);
+        
+        //this.tabelaVelocidadeDeMudancaDePosicao.setaValoresNaTabela(pontosDeInstanciacao, 12.5f);
         //this.tabelaVelocidadeDeMudancaDePosicao.printaTabela();
-        this.criarAbrirAquivoAFMS.GravarMatriz(this.tabelaVelocidadeDeMudancaDePosicao.getTabelaDeVelocidadeDeMudancaDePosicao(), "MatrizTempoMedioDeMudancaDePonto.AFMS");
+        //this.criarAbrirAquivoAFMS.GravarMatriz(this.tabelaVelocidadeDeMudancaDePosicao.getTabelaDeVelocidadeDeMudancaDePosicao(), "MatrizTempoMedioDeMudancaDePonto.AFMS");
         // Ler a matriz do arquivo
         //float[,] matrizDoArquivo = criarAbrirAquivoAFMS.LerMatriz("MatrizTempoMedioDeMudancaDePonto.AFMS");
-        
+
     }
 
     //Função padrão dos scripts que herdam da classe MonoBehaviour
@@ -66,10 +70,12 @@ public class Base_Treinamento : MonoBehaviour
             //IniciarJogo = true; // Jogo iniciado
             comecarOJogo = true;
             //this.jogadorP.setInciarAcoes(this.comecarOJogo);
+            //transform.position = new Vector3(996.38f, transform.position.y, transform.position.z);
         }
 
         if (comecarOJogo)
         {
+            //transform.position = new Vector3(996.38f, transform.position.y, transform.position.z);
 
             this.tempoAtualDoNivel -= Time.deltaTime; // Inicio do cronometro do jogo
 
@@ -119,12 +125,20 @@ public class Base_Treinamento : MonoBehaviour
             this.DestruirObjetosNaPosicaoZ();
             this.atualizaQuantidadesDeMoedasDoJogador();
             this.atualizaQuantidadeDeVidasDoJogador();
+            
 
             if (objetosInstanciados.Count > 17)
             {
-                if (!IA.GetComponent<AgenteAprendizado>().estaAnalisandoOsDados())
+                
+                if (!IA.estaAnalisandoOsDados())
                 {
-                    IA.GetComponent<AgenteAprendizado>().setaMatrizParaAnalise(objetosInstanciados.GetRange(0, 12), pontosDeInstanciacao);
+
+                    //Debug.Log("1Posicao do personagem em x: " + transform.position.x);
+                    //transform.position = new Vector3(996.38f, transform.position.y, transform.position.z);
+                    //IA.setaMatrizParaAnalise(objetosInstanciados.GetRange(0, 12), pontosDeInstanciacao);
+                    IA.setaMatrizParaAnalise(objetosInstanciados.GetRange(0, 12), pontosDeInstanciacao);
+                    //IA.GetComponent<AgenteAprendizado>().setaMatrizParaAnalise();
+                    //IA.GetComponent<ControleAnimacaoIA>().AtivaDesativaTeclas(3);
                     //this.criarAbrirAquivoAFMS.GravarMatriz(IA.GetComponent<AgenteAprendizado>().getDadosDaMatriz(), "teste.AFMS");
                 }
                               

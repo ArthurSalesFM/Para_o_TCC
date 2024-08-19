@@ -5,34 +5,48 @@ using UnityEngine;
 public class AgenteAprendizado : MonoBehaviour
 {
     //public LineRenderer linhaDoRaio;  // Adicione o LineRenderer via Unity Inspector
-    private ControleMovimentacaoIA controleDeAnimacaoIA;
-    private bool pegandoOsDados = false;
-    //private bool analisandoDados = false;
+    private ControleAnimacaoIA controleDeAnimacaoIA;
+    private bool processandoAsInformacoes = false;
+    private bool executandoAnimacoes = false;
+    //private TabelaVelocidadeDeMudancaDePosicao velocidadesMovimentacao = new TabelaVelocidadeDeMudancaDePosicao();
+    private float[,] tabelaDeVelocidade;
+    /// <summary>
+    private bool analisandoDados = false;
+    /// </summary>
     private string[,] matrizDeObjetos;
+    private string[,] melhorCaminhoMatriz;
+    private List<GameObject> listaDeObjetos = new List<GameObject>();
     private float[] pontosOndeDeveIrIA;
+    private int posicaoDoObjeto = 0;
+    private int posicaoAtualDaIa = 3;
+    private int posicaoQueAIADeveIr;
     private int quantidadeMaximaDePontos = 0;
-    private int pontoAtualDaIa = 3;
-    private ArvoreBinaria arvoreBase = new ArvoreBinaria();
+    //private int pontoAtualDaIa = 3;
+    //private ArvoreBinaria arvoreBase = new ArvoreBinaria();
 
-    private void Start()
+    private void Start()         
     {
-        this.controleDeAnimacaoIA = new ControleMovimentacaoIA();
+        this.controleDeAnimacaoIA = GetComponent<ControleAnimacaoIA>();
 
         // Adicionar verificação para getVelocidadeCorrida()
         float velocidade = controleDeAnimacaoIA.getVelocidadeCorrida();
+        
         if (velocidade <= 0)
         {
             Debug.LogError("Velocidade de corrida é inválida.");
             return;
         }
         //this.tabelaVelocidadeDeMudancaDePosicao.printaTabela();
+        //this.controleDeAnimacaoIA.AtivaDesativaTeclas(3);
     }
 
-    void Update()
+    private void Update()
     {
-        // A cada quadro, obtemos observações, tomamos decisões e executamos ações
 
-        //bool observacao = ObterObservacao(out _);
+        if(melhorCaminhoMatriz != null)
+        {
+            ExecutarAcao(melhorCaminhoMatriz);
+        }
         
     }
 
@@ -45,15 +59,20 @@ public class AgenteAprendizado : MonoBehaviour
     //
     public bool estaAnalisandoOsDados()
     {
-        return this.pegandoOsDados;
+        return this.processandoAsInformacoes;
     }
 
-    public void setaMatrizParaAnalise(List<GameObject> objeto, GameObject [] pontosDeMovimentacao)
+    public void setaMatrizParaAnalise(List<GameObject> objetos, GameObject [] pontosDeMovimentacao)
     {
-
-        this.pegandoOsDados = true;
-        this.matrizDeObjetos = new string[objeto.Count , 8];
+        //transform.position = new Vector3(998.3f, transform.position.y, transform.position.z);
+        //Debug.Log("2Posicao do personagem em x: " + transform.position.x);
+        this.processandoAsInformacoes = true;
+        this.listaDeObjetos = objetos;
+        this.matrizDeObjetos = new string[objetos.Count , 8];
         this.pontosOndeDeveIrIA = new float[pontosDeMovimentacao.Length];
+        //this.velocidadesMovimentacao.setaValoresNaTabela(pontosDeMovimentacao, 12.5f);
+        //this.tabelaDeVelocidade = this.velocidadesMovimentacao.getTabelaDeVelocidadeDeMudancaDePosicao();
+        //Debug.Log("3Posicao do personagem em x: " + transform.position.x);
 
 
         //Setando os valores de x como referencia de movimentação.
@@ -61,78 +80,80 @@ public class AgenteAprendizado : MonoBehaviour
         {
             this.pontosOndeDeveIrIA[x] = pontosDeMovimentacao[x].transform.position.x; 
         }
+
         
+       // Debug.Log("4Posicao do personagem em x: " + transform.position.x);
 
         //Setando os tipos de objetos 
-        for (int linha = 0; linha < objeto.Count; linha++)
+        for (int linha = 0; linha < objetos.Count; linha++)
         {
             
-           if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 0)
+           if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 0)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 1);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 1);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 1)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 1)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 2)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 2)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 3)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 3)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 4)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 4)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 4);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 4);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 5)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 5)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 2);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 2);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 6)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 6)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 3);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 3);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 7)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 7)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 3);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 3);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 8)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 8)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 4);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 4);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 9)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 9)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 2);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 2);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 10)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 10)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 5);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 11)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 11)
            {
-                this.setaObstaculoNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 4);
+                this.setaObstaculoNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem(), 4);
            }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 12)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 12)
            {
-                this.setaVidaNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem());
+                this.setaVidaNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem());
             }
-           else if (objeto[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 13)
+           else if (objetos[linha].GetComponent<DadosDoObjeto>().getQualObjetoFoiInstanciado() == 13)
            {
-                this.setaMoedaNaMatriz(linha, objeto[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem());
+                this.setaMoedaNaMatriz(linha, objetos[linha].GetComponent<DadosDoObjeto>().getPontoDeOrigem());
            }
             
         }
               
-        string[,] melhorCaminhoMatriz = this.caminhoMaisVantajoso(matrizDeObjetos);
-
-        this.imprimirMatriz(melhorCaminhoMatriz, "Caminho mais vantajoso");
+        this.melhorCaminhoMatriz = this.caminhoMaisVantajoso(matrizDeObjetos);
+        Debug.Log("\ninfo....");
+        this.imprimirMatriz(this.melhorCaminhoMatriz, "Caminho mais vantajoso");
         Debug.Log("\nQuantidade total de pontos possível : " + this.quantidadeMaximaDePontos );
 
-        arvoreBase.Inserir(this.quantidadeMaximaDePontos, melhorCaminhoMatriz);
-
+        this.analisandoDados = true;
+        //ExecutarAcao(this.melhorCaminhoMatriz);
 
     }    
 
@@ -224,12 +245,14 @@ public class AgenteAprendizado : MonoBehaviour
                     if (matriz[linha, coluna] == "$")
                     {
                         this.quantidadeMaximaDePontos += 10;
+                        matriz[linha, coluna] = "$";
                     }
                     else
                     {
                         this.quantidadeMaximaDePontos += 30;
+                        matriz[linha, coluna] = "+";
                     }
-                    matriz[linha, coluna] = "!";
+                    
                 }
                 else if (matriz[linha, coluna] == "" || matriz[linha, coluna] == null)
                 {
@@ -254,52 +277,119 @@ public class AgenteAprendizado : MonoBehaviour
     }
 
 
-
     //**************************************************************************************************************************************
 
     // Função para obter observações do ambiente
-    private bool ObterObservacao(out string objetoDetectado)
+    /*private bool ObterObservacao(out string objetoDetectado)
     {
         // Lógica para detecção de objetos ao redor
         // ...
         objetoDetectado = null;
         return false;
     }
+    */
 
     // Função para executar ações com base nas observações
-    private void ExecutarAcao()
+    private void ExecutarAcao(string[,] matriz)
     {
-        // Lógica para executar ações com base nas observações
-        string objetoDetectado;
-        if (ObterObservacao(out objetoDetectado))
+        
+            if (!executandoAnimacoes)
+            {
+                int posicao = -1;
+                List<int> posicoes = new List<int>();
+
+                for (int inic = 0; inic < 8; inic++)
+                {
+
+                    //Debug.Log(matriz[posicaoDoObjeto, inic]);
+                    if (matriz[this.posicaoDoObjeto, inic] == "$")
+                    {
+                        posicao = inic;
+                        inic = 99;
+                    }
+                    else if (matriz[this.posicaoDoObjeto, inic] == "+")
+                    {
+                        posicao = inic;
+                        inic = 99;
+                    }
+                    else
+                    {
+                        if (matriz[this.posicaoDoObjeto, inic] == "!")
+                        {
+                            posicoes.Add(inic);
+                        }
+                    }
+                }
+
+                if (posicao < 0)
+                {
+                    System.Random random = new System.Random();
+                    posicao = posicoes[random.Next(0, posicoes.Count)];
+                }
+                this.posicaoQueAIADeveIr = posicao;
+                executandoAnimacoes = true;
+            }
+            else
+            {
+                if (transform.position.x != pontosOndeDeveIrIA[this.posicaoQueAIADeveIr])
+                {
+                    if (transform.position.x > pontosOndeDeveIrIA[this.posicaoQueAIADeveIr])
+                    {
+                        this.controleDeAnimacaoIA.AtivaDesativaTeclas(0);
+                        this.controleDeAnimacaoIA.MovimentaPersonagem();
+                }
+                    else if (transform.position.x < pontosOndeDeveIrIA[this.posicaoQueAIADeveIr])
+                    {
+                        this.controleDeAnimacaoIA.AtivaDesativaTeclas(1);
+                        this.controleDeAnimacaoIA.MovimentaPersonagem();
+                    }
+                    else if(transform.position.x == pontosOndeDeveIrIA[this.posicaoQueAIADeveIr])
+                    {
+                        this.controleDeAnimacaoIA.AtivaDesativaTeclas(3);
+                        this.controleDeAnimacaoIA.MovimentaPersonagem();
+                        this.executandoAnimacoes = false;
+                    }
+                }
+            }
+        
+
+        
+        
+        //this.analisandoDados = false;
+
+    }
+
+
+    private float[] getMaiorTempo(int posicaoDaIA)
+    {
+        float[] tempos = new float[2];
+        float menorValor = 9999999999999.0f;
+        float maiorValor = -9999999999999.0f;
+
+        for (int i = 0; i < this.tabelaDeVelocidade.GetLength(1); i++)
         {
-            Debug.Log($"Objeto detectado: {objetoDetectado}. Executando ação...");
+            if(menorValor > this.tabelaDeVelocidade[posicaoDaIA, i])
+            {
+                menorValor = this.tabelaDeVelocidade[posicaoDaIA, i];
+            }
+
+            if (maiorValor < this.tabelaDeVelocidade[posicaoDaIA, i])
+            {
+                maiorValor = this.tabelaDeVelocidade[posicaoDaIA, i];
+            }
+            
         }
+
+        tempos[0] = menorValor;
+        tempos[1] = maiorValor;
+        return tempos;
     }
 
     // Função para tomar decisões com base nas observações
     private void TomarDecisao()
     {
-        // Lógica para tomar decisões com base nas observações
-        string objetoDetectado;
-        if (ObterObservacao(out objetoDetectado))
-        {
-            switch (objetoDetectado)
-            {
-                case "moeda":
-                    MoverEmDirecaoAoAlvo();  // Implemente essa função
-                    break;
-                case "barreira":
-                    EvitarObstaculo();  // Implemente essa função
-                    break;
-                case "vida":
-                    // Lógica para ação específica ao detectar um objeto "vida"
-                    break;
-                default:
-                    // Lógica padrão ou nenhuma ação se nenhum objeto detectado
-                    break;
-            }
-        }
+
+        //controleDeAnimacaoIA
     }
 
     private void MoverEmDirecaoAoAlvo()
@@ -308,11 +398,7 @@ public class AgenteAprendizado : MonoBehaviour
         //transform.Translate(Vector3.forward * velocidadeMovimento * Time.deltaTime);
     }
 
-    private void EvitarObstaculo()
-    {
-        // Exemplo: Gira o agente para evitar a barreira
-        //transform.Rotate(Vector3.up * velocidadeRotacao * Time.deltaTime);
-    }
+    
 
 }
 
